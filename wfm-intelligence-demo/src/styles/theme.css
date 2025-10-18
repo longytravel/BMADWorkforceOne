@@ -1,0 +1,30 @@
+/**
+ * Custom CSS properties for WFM Intelligence Demo
+ * Additional theme variables beyond Shadcn defaults
+ */
+
+:root {
+  /* Calendar specific colors */
+  --calendar-grid-border: hsl(var(--border));
+  --calendar-today: hsl(var(--primary) / 0.1);
+
+  /* Heatmap risk level colors */
+  --risk-safe: 168 76% 42%;     /* Green */
+  --risk-caution: 48 96% 53%;   /* Yellow */
+  --risk-danger: 0 84% 60%;     /* Red */
+
+  /* Activity type colors (Microsoft Outlook style) */
+  --activity-shift: 211 100% 42%;      /* #0078D4 */
+  --activity-break: 184 100% 36%;      /* #00B7C3 */
+  --activity-lunch: 261 37% 55%;       /* #8764B8 */
+  --activity-meeting: 358 59% 50%;     /* #D13438 */
+  --activity-training: 25 92% 43%;     /* #CA5010 */
+  --activity-off-phone: 92 95% 27%;    /* #498205 */
+  --activity-unavailable: 240 5% 53%;  /* #8A8886 */
+
+  /* Z-index layers */
+  --z-modal: 1000;
+  --z-popover: 900;
+  --z-header: 800;
+  --z-dropdown: 700;
+}

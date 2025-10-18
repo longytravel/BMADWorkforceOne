@@ -1,0 +1,42 @@
+[
+  {
+    "id": "rule-001",
+    "type": "break-spacing",
+    "description": "Minimum 2 hours between breaks",
+    "parameters": {
+      "minMinutesBetweenBreaks": 120
+    },
+    "severity": "error",
+    "enabled": true
+  },
+  {
+    "id": "rule-002",
+    "type": "max-hours-without-break",
+    "description": "Maximum 5 hours without a break",
+    "parameters": {
+      "maxHoursWithoutBreak": 5
+    },
+    "severity": "error",
+    "enabled": true
+  },
+  {
+    "id": "rule-003",
+    "type": "lunch-duration",
+    "description": "Lunch must be 30 minutes",
+    "parameters": {
+      "lunchDurationMinutes": 30
+    },
+    "severity": "error",
+    "enabled": true
+  },
+  {
+    "id": "rule-004",
+    "type": "min-shift-duration",
+    "description": "Minimum shift duration is 4 hours",
+    "parameters": {
+      "minShiftDurationMinutes": 240
+    },
+    "severity": "warning",
+    "enabled": true
+  }
+]

@@ -1,0 +1,1577 @@
+[
+  {
+    "id": "agent-001",
+    "name": "Maria Garcia",
+    "email": "maria.garcia@example.com",
+    "skills": ["Spanish", "Sales", "Technical"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-002",
+    "name": "James Chen",
+    "email": "james.chen@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-003",
+    "name": "Aisha Patel",
+    "email": "aisha.patel@example.com",
+    "skills": ["Billing", "Technical"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-004",
+    "name": "David Thompson",
+    "email": "david.thompson@example.com",
+    "skills": ["Sales", "Retention"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-005",
+    "name": "Fatima Al-Rashid",
+    "email": "fatima.alrashid@example.com",
+    "skills": ["Spanish", "Billing"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-006",
+    "name": "John Murphy",
+    "email": "john.murphy@example.com",
+    "skills": ["Technical", "Manager"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-007",
+    "name": "Yuki Tanaka",
+    "email": "yuki.tanaka@example.com",
+    "skills": ["Sales", "Technical"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-008",
+    "name": "Sophie Dubois",
+    "email": "sophie.dubois@example.com",
+    "skills": ["Retention", "Sales"],
+    "team": "Team B",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-009",
+    "name": "Carlos Rodriguez",
+    "email": "carlos.rodriguez@example.com",
+    "skills": ["Spanish", "Sales", "Retention"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-010",
+    "name": "Priya Sharma",
+    "email": "priya.sharma@example.com",
+    "skills": ["Technical", "Billing"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-011",
+    "name": "Michael O'Brien",
+    "email": "michael.obrien@example.com",
+    "skills": ["Sales", "Billing"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-012",
+    "name": "Ngozi Okonkwo",
+    "email": "ngozi.okonkwo@example.com",
+    "skills": ["Retention", "Technical"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-013",
+    "name": "Lars Andersson",
+    "email": "lars.andersson@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team C",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-014",
+    "name": "Leila Hassan",
+    "email": "leila.hassan@example.com",
+    "skills": ["Spanish", "Billing", "Sales"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-015",
+    "name": "Ryan Williams",
+    "email": "ryan.williams@example.com",
+    "skills": ["Sales", "Retention"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-016",
+    "name": "Hana Kim",
+    "email": "hana.kim@example.com",
+    "skills": ["Technical", "Manager"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-017",
+    "name": "Dmitri Volkov",
+    "email": "dmitri.volkov@example.com",
+    "skills": ["Billing", "Technical"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-018",
+    "name": "Isabella Santos",
+    "email": "isabella.santos@example.com",
+    "skills": ["Spanish", "Sales"],
+    "team": "Team D",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-019",
+    "name": "Amara Okafor",
+    "email": "amara.okafor@example.com",
+    "skills": ["Retention", "Sales", "Billing"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-020",
+    "name": "Thomas Berg",
+    "email": "thomas.berg@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-021",
+    "name": "Lin Zhang",
+    "email": "lin.zhang@example.com",
+    "skills": ["Billing", "Retention"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-022",
+    "name": "Elena Popescu",
+    "email": "elena.popescu@example.com",
+    "skills": ["Spanish", "Technical"],
+    "team": "Team D",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-023",
+    "name": "Omar Al-Fayed",
+    "email": "omar.alfayed@example.com",
+    "skills": ["Sales", "Retention", "Manager"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-024",
+    "name": "Sarah Cohen",
+    "email": "sarah.cohen@example.com",
+    "skills": ["Technical", "Billing"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-025",
+    "name": "Raj Kumar",
+    "email": "raj.kumar@example.com",
+    "skills": ["Sales", "Spanish"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-026",
+    "name": "Ana Silva",
+    "email": "ana.silva@example.com",
+    "skills": ["Retention", "Technical"],
+    "team": "Team D",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-027",
+    "name": "Kevin Nguyen",
+    "email": "kevin.nguyen@example.com",
+    "skills": ["Billing", "Sales"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-028",
+    "name": "Gabriela Moreno",
+    "email": "gabriela.moreno@example.com",
+    "skills": ["Spanish", "Retention", "Sales"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-029",
+    "name": "Marcus Johnson",
+    "email": "marcus.johnson@example.com",
+    "skills": ["Technical", "Manager"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-030",
+    "name": "Olivia Martin",
+    "email": "olivia.martin@example.com",
+    "skills": ["Sales", "Billing"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-031",
+    "name": "Tariq Rahman",
+    "email": "tariq.rahman@example.com",
+    "skills": ["Technical", "Retention"],
+    "team": "Team C",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-032",
+    "name": "Nina Petrov",
+    "email": "nina.petrov@example.com",
+    "skills": ["Spanish", "Billing"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-033",
+    "name": "Lucas Fernandez",
+    "email": "lucas.fernandez@example.com",
+    "skills": ["Sales", "Retention"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-034",
+    "name": "Mia Wong",
+    "email": "mia.wong@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-035",
+    "name": "Ahmed Salah",
+    "email": "ahmed.salah@example.com",
+    "skills": ["Billing", "Technical"],
+    "team": "Team C",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-036",
+    "name": "Emma Larsson",
+    "email": "emma.larsson@example.com",
+    "skills": ["Spanish", "Sales", "Retention"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-037",
+    "name": "Daniel Park",
+    "email": "daniel.park@example.com",
+    "skills": ["Technical", "Manager"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-038",
+    "name": "Zara Ibrahim",
+    "email": "zara.ibrahim@example.com",
+    "skills": ["Sales", "Billing"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-039",
+    "name": "Viktor Sokolov",
+    "email": "viktor.sokolov@example.com",
+    "skills": ["Retention", "Technical"],
+    "team": "Team C",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-040",
+    "name": "Sofia Rossi",
+    "email": "sofia.rossi@example.com",
+    "skills": ["Spanish", "Technical", "Sales"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-041",
+    "name": "Noah Brown",
+    "email": "noah.brown@example.com",
+    "skills": ["Billing", "Retention"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-042",
+    "name": "Anika Gupta",
+    "email": "anika.gupta@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team D",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-043",
+    "name": "Paulo Costa",
+    "email": "paulo.costa@example.com",
+    "skills": ["Spanish", "Sales", "Retention"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-044",
+    "name": "Chloe Mitchell",
+    "email": "chloe.mitchell@example.com",
+    "skills": ["Technical", "Manager"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-045",
+    "name": "Hassan El-Amin",
+    "email": "hassan.elamin@example.com",
+    "skills": ["Billing", "Sales"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-046",
+    "name": "Ingrid Sorensen",
+    "email": "ingrid.sorensen@example.com",
+    "skills": ["Retention", "Technical"],
+    "team": "Team C",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-047",
+    "name": "Mateo Ramirez",
+    "email": "mateo.ramirez@example.com",
+    "skills": ["Spanish", "Billing", "Technical"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-048",
+    "name": "Rachel White",
+    "email": "rachel.white@example.com",
+    "skills": ["Sales", "Retention"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-049",
+    "name": "Jin Park",
+    "email": "jin.park@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team B",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-050",
+    "name": "Carmen Diaz",
+    "email": "carmen.diaz@example.com",
+    "skills": ["Spanish", "Sales", "Manager"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-051",
+    "name": "Ben Taylor",
+    "email": "ben.taylor@example.com",
+    "skills": ["Billing", "Technical"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-052",
+    "name": "Amina Ndiaye",
+    "email": "amina.ndiaye@example.com",
+    "skills": ["Retention", "Sales"],
+    "team": "Team A",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-053",
+    "name": "Oliver Schmidt",
+    "email": "oliver.schmidt@example.com",
+    "skills": ["Technical", "Billing"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-054",
+    "name": "Lucia Ricci",
+    "email": "lucia.ricci@example.com",
+    "skills": ["Spanish", "Sales"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-055",
+    "name": "Wei Chen",
+    "email": "wei.chen@example.com",
+    "skills": ["Technical", "Manager"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-056",
+    "name": "Ava Robinson",
+    "email": "ava.robinson@example.com",
+    "skills": ["Sales", "Retention"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-057",
+    "name": "Ibrahim Kone",
+    "email": "ibrahim.kone@example.com",
+    "skills": ["Billing", "Technical"],
+    "team": "Team B",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-058",
+    "name": "Luna Martinez",
+    "email": "luna.martinez@example.com",
+    "skills": ["Spanish", "Retention", "Sales"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-059",
+    "name": "Ethan Davis",
+    "email": "ethan.davis@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-060",
+    "name": "Yara Al-Said",
+    "email": "yara.alsaid@example.com",
+    "skills": ["Billing", "Retention"],
+    "team": "Team A",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-061",
+    "name": "Kai Nakamura",
+    "email": "kai.nakamura@example.com",
+    "skills": ["Spanish", "Technical"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-062",
+    "name": "Grace Lewis",
+    "email": "grace.lewis@example.com",
+    "skills": ["Sales", "Billing"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-063",
+    "name": "Arjun Singh",
+    "email": "arjun.singh@example.com",
+    "skills": ["Technical", "Retention"],
+    "team": "Team D",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-064",
+    "name": "Isabelle Fontaine",
+    "email": "isabelle.fontaine@example.com",
+    "skills": ["Spanish", "Sales", "Manager"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-065",
+    "name": "Leo Walker",
+    "email": "leo.walker@example.com",
+    "skills": ["Billing", "Technical"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-066",
+    "name": "Maya Patel",
+    "email": "maya.patel@example.com",
+    "skills": ["Retention", "Sales"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-067",
+    "name": "Felix Kowalski",
+    "email": "felix.kowalski@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team D",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-068",
+    "name": "Noor Abdullah",
+    "email": "noor.abdullah@example.com",
+    "skills": ["Spanish", "Billing"],
+    "team": "Team A",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-069",
+    "name": "Theo Johansson",
+    "email": "theo.johansson@example.com",
+    "skills": ["Sales", "Retention"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-070",
+    "name": "Aria Thompson",
+    "email": "aria.thompson@example.com",
+    "skills": ["Technical", "Billing"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-071",
+    "name": "Diego Vasquez",
+    "email": "diego.vasquez@example.com",
+    "skills": ["Spanish", "Technical", "Manager"],
+    "team": "Team D",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 3,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-072",
+    "name": "Freya Hansen",
+    "email": "freya.hansen@example.com",
+    "skills": ["Retention", "Sales"],
+    "team": "Team A",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "thursday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "friday": { "startTime": "09:00", "endTime": "13:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-073",
+    "name": "Liam O'Connor",
+    "email": "liam.oconnor@example.com",
+    "skills": ["Technical", "Sales"],
+    "team": "Team B",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "thursday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "friday": { "startTime": "07:00", "endTime": "15:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 1,
+      "breakAdjustmentsThisWeek": 0
+    }
+  },
+  {
+    "id": "agent-074",
+    "name": "Saanvi Reddy",
+    "email": "saanvi.reddy@example.com",
+    "skills": ["Billing", "Retention"],
+    "team": "Team C",
+    "employmentType": "full-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "21:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 2,
+      "breakAdjustmentsThisWeek": 1
+    }
+  },
+  {
+    "id": "agent-075",
+    "name": "Andre Baptiste",
+    "email": "andre.baptiste@example.com",
+    "skills": ["Spanish", "Sales", "Retention"],
+    "team": "Team D",
+    "employmentType": "part-time",
+    "weeklySchedule": {
+      "monday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "tuesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "wednesday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "thursday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "friday": { "startTime": "13:00", "endTime": "17:00", "isWorkingDay": true },
+      "saturday": { "isWorkingDay": false },
+      "sunday": { "isWorkingDay": false }
+    },
+    "metadata": {
+      "meetingsThisWeek": 0,
+      "breakAdjustmentsThisWeek": 0
+    }
+  }
+]

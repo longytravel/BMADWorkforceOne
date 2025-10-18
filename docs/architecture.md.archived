@@ -1,0 +1,2070 @@
+# Intelligent WFM Scheduling Demo - Full-Stack Architecture Document
+
+**Document Version:** 1.0
+**Date:** October 18, 2025
+**Author:** Winston (Architect)
+**Project Type:** Demo/Proof-of-Concept
+
+---
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [High Level Architecture](#high-level-architecture)
+3. [Tech Stack](#tech-stack)
+4. [Data Models](#data-models)
+5. [API Specification](#api-specification)
+6. [Components](#components)
+7. [External APIs](#external-apis)
+8. [Core Workflows](#core-workflows)
+9. [Database Schema](#database-schema)
+10. [Frontend Architecture](#frontend-architecture)
+11. [Backend Architecture](#backend-architecture)
+12. [Unified Project Structure](#unified-project-structure)
+13. [Development Workflow](#development-workflow)
+14. [Deployment Architecture](#deployment-architecture)
+15. [Security and Performance](#security-and-performance)
+16. [Testing Strategy](#testing-strategy)
+17. [Coding Standards](#coding-standards)
+18. [Error Handling Strategy](#error-handling-strategy)
+19. [Monitoring and Observability](#monitoring-and-observability)
+20. [Checklist Results Report](#checklist-results-report)
+
+---
+
+## Introduction
+
+This document outlines the complete fullstack architecture for **Intelligent WFM Scheduling Demo**, including backend systems (simulated client-side), frontend implementation, and their integration. It serves as the single source of truth for AI-driven development, ensuring consistency across the entire technology stack.
+
+This unified approach combines what would traditionally be separate backend and frontend architecture documents, streamlining the development process for modern fullstack applications where these concerns are increasingly intertwined.
+
+### Starter Template or Existing Project
+
+**Status:** N/A - Greenfield Project
+
+This is a greenfield proof-of-concept with no existing codebase or starter template. The PRD explicitly defines this as a client-side demo built from scratch with zero backend infrastructure.
+
+**Recommendation:** Use `npm create vite@latest wfm-intelligence-demo -- --template react-ts` as the initialization point, which provides:
+- React 18+ with TypeScript configured
+- Vite build tooling optimized for performance
+- ESLint and basic project structure
+- Fast HMR (<50ms as specified in PRD)
+
+### Change Log
+
+| Date | Version | Description | Author |
+|------|---------|-------------|--------|
+| 2025-10-18 | 1.0 | Initial architecture draft from PRD | Winston (Architect) |
+
+---
+
+## High Level Architecture
+
+### Technical Summary
+
+The **Intelligent WFM Scheduling Demo** uses a **Jamstack client-side architecture** where all intelligence runs in the browser. The React 18+ TypeScript application loads demo data from **JSON files** (agents, schedules, forecasts, compliance rules), processes IOI scoring and break optimization algorithms client-side, and deploys to **Vercel's free tier** for zero-cost global hosting with shareable web URLs. This architecture eliminates backend complexity while delivering enterprise-grade UX with interactive CvD heatmaps, smart scheduling workflows, and real-time visual feedback. JSON-based data enables version control and easy modification for different demo scenarios.
+
+### Platform and Infrastructure Choice
+
+**Platform:** Vercel (Free Tier)
+
+**Key Services:**
+- **Vercel Edge Network** - Global CDN for <100ms asset delivery
+- **Vercel Static Hosting** - Zero-config React SPA deployment
+- **GitHub Integration** - Auto-deploy from `main` branch
+- **Preview Deployments** - Unique URLs for every PR (demo variations)
+
+**Deployment Host and Regions:** Global Edge Network (automatic worldwide distribution)
+
+**Why Vercel for This Demo:**
+- ✅ **Free forever** for personal/demo projects (unlimited bandwidth)
+- ✅ **Zero configuration** - detects Vite automatically
+- ✅ **Instant deploys** (30-60 seconds from git push to live URL)
+- ✅ **Custom domains free** (can use wfm-demo.vercel.app or custom)
+- ✅ **Preview URLs** for testing different datasets without affecting production
+- ✅ **No credit card required** for free tier
+
+### Repository Structure
+
+**Structure:** Monorepo (Single Package)
+
+**Monorepo Tool:** N/A (Simple single-app structure, no workspace complexity needed)
+
+**Package Organization:**
+
+Given this is a demo with no backend and JSON-based data, we use a **simplified single-app structure**:
+
+```
+/wfm-intelligence-demo
+  /src                    (React app - all TypeScript)
+  /public
+    /demo-data           (JSON files - version controlled!)
+      agents.json
+      schedules.json
+      cvd-forecast.json
+      compliance-rules.json
+  package.json
+  vite.config.ts
+  README.md
+```
+
+**Rationale:**
+- **JSON over CSV**: Native browser parsing, TypeScript-first, nested data structures supported
+- **No monorepo complexity**: Single deployable unit = simpler CI/CD
+- **Public folder**: Vercel serves `/public` as static assets (JSON files load via fetch)
+
+### High Level Architecture Diagram
+
+```mermaid
+graph TB
+    User[👤 Demo Viewer]
+    Browser[🌐 Web Browser]
+    Vercel[☁️ Vercel Edge CDN]
+    JSONData[(📊 JSON Files<br/>agents.json<br/>schedules.json<br/>cvd-forecast.json<br/>compliance-rules.json)]
+
+    User -->|Accesses| Vercel
+    Vercel -->|Serves| Browser
+    Browser -->|Loads| JSONData
+
+    subgraph "Client-Side Runtime (Browser)"
+        Browser
+        React[⚛️ React App]
+        StateStore[🗄️ Zustand Store]
+        JSONParser[📄 Native JSON.parse]
+        IOIEngine[🧠 IOI Scoring Engine]
+        BreakOptimizer[⚙️ Break Adjustment Logic]
+        CvDCalc[📈 Coverage Calculator]
+
+        Browser --> React
+        React --> StateStore
+        React --> JSONParser
+        JSONParser --> JSONData
+        StateStore --> IOIEngine
+        StateStore --> BreakOptimizer
+        StateStore --> CvDCalc
+    end
+
+    style Browser fill:#e1f5ff
+    style Vercel fill:#000000,color:#fff
+    style JSONData fill:#4CAF50,color:#fff
+    style IOIEngine fill:#FF9800,color:#fff
+```
+
+### Architectural Patterns
+
+- **Jamstack Architecture:** Static site generation with client-side business logic - _Rationale:_ Zero backend cost, instant global CDN distribution, perfect for interactive demos that don't need persistence
+
+- **Component-Based UI:** Reusable React components with TypeScript interfaces - _Rationale:_ Maintainability and type safety across complex UI (heatmaps, calendars, modals)
+
+- **JSON-as-Database Pattern:** Static JSON files replacing traditional database - _Rationale:_ Zero infrastructure, version controlled data, native browser parsing, TypeScript-first validation
+
+- **Client-Side Service Layer:** Business logic modules (IOI calculator, break adjuster) separate from UI - _Rationale:_ Testable pure functions, clear separation of concerns despite no backend
+
+- **Immutable State Management:** Zustand store with immutable updates - _Rationale:_ Predictable state changes critical for real-time heatmap/calendar synchronization
+
+- **Progressive Enhancement:** Core demo works without advanced browser features, enhanced UX for modern browsers - _Rationale:_ Maximum compatibility for stakeholder demos on various devices
+
+---
+
+## Tech Stack
+
+This is the **DEFINITIVE** technology selection for the entire project. All development must use these exact versions.
+
+### Technology Stack Table
+
+| Category | Technology | Version | Purpose | Rationale |
+|----------|-----------|---------|---------|-----------|
+| **Frontend Language** | TypeScript | 5.3+ | Type-safe React development | Prevents runtime errors during demos; strict mode catches bugs at compile time |
+| **Frontend Framework** | React | 18.2+ | UI component library | Industry standard with best-in-class hooks, concurrent features, and ecosystem |
+| **UI Component Library** | Shadcn/ui | Latest | Accessible, customizable components | Copy-paste components (not npm dependency), built on Radix UI for WCAG 2.1 AA compliance |
+| **CSS Framework** | Tailwind CSS | 3.4+ | Utility-first styling | Zero custom CSS files, consistent design system, tree-shakeable for optimal bundle size |
+| **State Management** | Zustand | 4.5+ | Global state store | Lightweight (1KB), simple API, no boilerplate vs Redux; perfect for demo scope |
+| **Date/Time Library** | date-fns | 3.0+ | Date manipulation | Tree-shakeable, immutable, modular; critical for contact center scheduling time math |
+| **Calendar Component** | React Big Calendar | 1.11+ | Outlook-style calendar grid | Proven library saves weeks of custom grid implementation; drag-drop ready |
+| **Charting/Heatmap** | Recharts | 2.10+ | CvD heatmap visualization | Declarative React-friendly API, composable charts, good performance for 672 cells (7 days × 96 intervals) |
+| **Drag & Drop** | dnd-kit | 8.0+ | Calendar drag interactions | Modern, touch-friendly, accessible; better DX than react-dnd |
+| **Icons** | Lucide React | 0.344+ | UI icons | Tree-shakeable, consistent style, modern alternative to FontAwesome |
+| **Data Validation** | Zod | 3.22+ | JSON schema validation | Validates demo data structure on load; TypeScript inference from schemas |
+| **Build Tool** | Vite | 5.0+ | Dev server & bundler | <50ms HMR, optimized production builds, native ESM; faster than Webpack/CRA |
+| **Frontend Testing** | Vitest | 1.2+ | Unit tests for algorithms | Vite-native, fast, compatible test runner; Jest-like API |
+| **Testing Library** | React Testing Library | 14.1+ | Component integration tests | User-centric testing approach for UI interactions |
+| **E2E Testing** | Manual | N/A | Full demo walkthrough | Playwright/Cypress overkill for POC; manual validation sufficient per PRD |
+| **Linting** | ESLint | 8.56+ | Code quality enforcement | TypeScript rules, React hooks rules, catch errors pre-commit |
+| **Formatting** | Prettier | 3.2+ | Consistent code style | 2-space indent, single quotes, trailing commas; no style debates |
+| **Deployment Platform** | Vercel | N/A | Static hosting + CDN | Zero-config, free tier, instant deploys, global edge network |
+| **CI/CD** | Vercel Auto-Deploy | N/A | Git push → live URL | Automatic on GitHub push to main; no GitHub Actions needed |
+| **Monitoring** | Vercel Analytics | Free Tier | Page views, performance | Built-in Web Vitals tracking, zero setup |
+| **Error Tracking** | Console + Manual | N/A | Demo error handling | Sentry/Rollbar overkill for demo scope; console.error sufficient |
+
+**Total Bundle Size Estimate:**
+
+| Category | Size (gzipped) |
+|----------|----------------|
+| React + React DOM | ~45 KB |
+| Zustand + date-fns | ~15 KB |
+| React Big Calendar | ~80 KB |
+| Recharts | ~90 KB |
+| dnd-kit | ~40 KB |
+| Shadcn components | ~30 KB |
+| Demo Data (JSON) | ~80 KB |
+| **Total** | **~380 KB** |
+
+**Performance Impact:** 380KB on global CDN = ~800ms load on 3G, ~200ms on 4G, <100ms on broadband
+✅ **Meets <2s load target** with room to spare
+
+---
+
+## Data Models
+
+These are the core data models/entities that define the domain. All TypeScript interfaces enable strict type checking.
+
+### Agent
+
+**Purpose:** Represents a contact center agent with skills, availability, and scheduling metadata.
+
+**Key Attributes:**
+- `id`: string - Unique identifier (UUID or sequential)
+- `name`: string - Full name for display
+- `email`: string - Contact email (for notification previews)
+- `skills`: string[] - Array of skill tags (e.g., ["Spanish", "Technical", "Sales"])
+- `team`: string - Team/department grouping
+- `employmentType`: "full-time" | "part-time" - Affects scheduling rules
+- `weeklySchedule`: WeeklySchedule - Standard shift times
+- `metadata`: object - Fairness tracking (meetings scheduled this week, etc.)
+
+#### TypeScript Interface
+
+```typescript
+interface Agent {
+  id: string;
+  name: string;
+  email: string;
+  skills: string[];
+  team: string;
+  employmentType: 'full-time' | 'part-time';
+  weeklySchedule: WeeklySchedule;
+  metadata: {
+    meetingsThisWeek: number;
+    breakAdjustmentsThisWeek: number;
+    lastScheduledDate?: string; // ISO date
+  };
+}
+
+interface WeeklySchedule {
+  monday?: DayShift;
+  tuesday?: DayShift;
+  wednesday?: DayShift;
+  thursday?: DayShift;
+  friday?: DayShift;
+  saturday?: DayShift;
+  sunday?: DayShift;
+}
+
+interface DayShift {
+  startTime: string; // "09:00" (24-hour format)
+  endTime: string;   // "17:00"
+  isWorkingDay: boolean;
+}
+```
+
+#### Relationships
+- **Agent → Activities** (one-to-many): Each agent has multiple scheduled activities
+- **Agent → CvDDataPoint** (many-to-many): Agents contribute to coverage in time intervals
+- **Agent → IOIResult** (computed): IOI scoring evaluates agents for time slots
+
+---
+
+### Activity
+
+**Purpose:** Represents any scheduled block on an agent's calendar (shift, break, lunch, meeting, training).
+
+**Key Attributes:**
+- `id`: string - Unique activity identifier
+- `agentId`: string - Foreign key to Agent
+- `type`: ActivityType - Enum of activity categories
+- `title`: string - Display name
+- `startDateTime`: string - ISO 8601 datetime
+- `endDateTime`: string - ISO 8601 datetime
+- `durationMinutes`: number - Calculated or explicit
+- `isMovable`: boolean - Whether drag-drop is allowed
+- `color`: string - Hex color for calendar display
+- `metadata`: object - Additional context (meeting attendees, etc.)
+
+#### TypeScript Interface
+
+```typescript
+type ActivityType =
+  | 'shift'
+  | 'break'
+  | 'lunch'
+  | 'meeting'
+  | 'training'
+  | 'off-phone'
+  | 'unavailable';
+
+interface Activity {
+  id: string;
+  agentId: string;
+  type: ActivityType;
+  title: string;
+  startDateTime: string; // ISO 8601: "2025-10-20T14:30:00Z"
+  endDateTime: string;
+  durationMinutes: number;
+  isMovable: boolean;
+  color: string; // "#3B82F6" (Tailwind blue-500)
+  metadata: {
+    attendees?: string[]; // Agent IDs for meetings
+    reason?: string;      // For training/off-phone
+    ioiScore?: number;    // If scheduled via Smart Search
+  };
+}
+
+// Color scheme constants
+const ActivityColors: Record<ActivityType, string> = {
+  shift: '#3B82F6',      // Blue
+  break: '#FB923C',      // Orange
+  lunch: '#A855F7',      // Purple
+  meeting: '#10B981',    // Green
+  training: '#14B8A6',   // Teal
+  'off-phone': '#FBBF24', // Yellow
+  unavailable: '#94A3B8'  // Gray
+};
+```
+
+#### Relationships
+- **Activity → Agent** (many-to-one): Each activity belongs to one agent
+- **Activity → AuditLogEntry** (one-to-one): Each activity change creates audit entry
+
+---
+
+### CvDDataPoint
+
+**Purpose:** Represents forecasted demand and actual capacity for a 15-minute time interval.
+
+**Key Attributes:**
+- `intervalStart`: string - ISO 8601 datetime (interval start)
+- `dayOfWeek`: string - "Monday" through "Sunday"
+- `timeSlot`: string - "14:00" (for display)
+- `forecastedCalls`: number - Expected call volume
+- `scheduledAgents`: number - Computed from Agent schedules
+- `coveragePercent`: number - (scheduledAgents / forecastedCalls) × 100
+- `riskLevel`: RiskLevel - Enum based on coverage thresholds
+
+#### TypeScript Interface
+
+```typescript
+type RiskLevel = 'safe' | 'caution' | 'risk';
+
+interface CvDDataPoint {
+  intervalStart: string; // "2025-10-20T14:00:00Z"
+  dayOfWeek: string;     // "Monday"
+  timeSlot: string;      // "14:00" (display format)
+  forecastedCalls: number;
+  scheduledAgents: number; // Computed real-time
+  coveragePercent: number; // (scheduledAgents / forecastedCalls) * 100
+  riskLevel: RiskLevel;    // 'safe' >105%, 'caution' 90-105%, 'risk' <90%
+  metadata: {
+    skillsAvailable: string[]; // Skills of scheduled agents
+    peakHour: boolean;         // Flag for 10am-12pm, 2pm-4pm peaks
+  };
+}
+```
+
+#### Relationships
+- **CvDDataPoint → IOIResult** (one-to-many): Coverage data feeds IOI scoring
+- **CvDDataPoint → Agent** (computed): Derived from agent schedules + activities
+
+---
+
+### IOIResult
+
+**Purpose:** Intelligent Opportunity Index scoring result for a candidate time slot.
+
+**Key Attributes:**
+- `slotStart`: string - ISO 8601 datetime
+- `slotEnd`: string - ISO 8601 datetime
+- `totalScore`: number - Sum of all factor scores (0-100)
+- `factors`: object - Breakdown of 4 scoring factors
+- `recommendedAgents`: string[] - Agent IDs proposed for this slot
+- `requiresBreakAdjustment`: boolean - Whether break moves needed
+- `breakAdjustments`: BreakAdjustment[] - Proposed break moves if applicable
+
+#### TypeScript Interface
+
+```typescript
+interface IOIResult {
+  slotStart: string;
+  slotEnd: string;
+  totalScore: number; // 0-100
+  factors: {
+    cvdSafety: IOIFactor;        // 0-30 points
+    availabilityDensity: IOIFactor; // 0-25 points
+    complianceIntegrity: IOIFactor; // 0-25 points
+    basicFairness: IOIFactor;       // 0-20 points
+  };
+  recommendedAgents: string[]; // Agent IDs
+  requiresBreakAdjustment: boolean;
+  breakAdjustments?: BreakAdjustment[];
+  metadata: {
+    coverageBeforeAdd: number; // Coverage % before scheduling
+    coverageAfterAdd: number;  // Coverage % after scheduling
+    conflictsDetected: number;
+  };
+}
+
+interface IOIFactor {
+  score: number;
+  maxScore: number;
+  reasoning: string; // Explainability text
+}
+
+interface BreakAdjustment {
+  agentId: string;
+  currentBreak: Activity;
+  proposedBreak: Activity;
+  reason: string;
+  complianceCheck: {
+    valid: boolean;
+    violations: string[];
+  };
+}
+```
+
+#### Relationships
+- **IOIResult → Agent** (many-to-many): Recommends multiple agents
+- **IOIResult → CvDDataPoint** (many-to-one): Uses coverage data for scoring
+- **IOIResult → BreakAdjustment** (one-to-many): May propose multiple break moves
+
+---
+
+### ComplianceRule
+
+**Purpose:** Labor law and company policy rules for break scheduling.
+
+**Key Attributes:**
+- `id`: string - Rule identifier
+- `type`: RuleType - Category of rule
+- `description`: string - Human-readable rule text
+- `parameters`: object - Rule-specific configuration
+
+#### TypeScript Interface
+
+```typescript
+type RuleType =
+  | 'break-spacing'
+  | 'max-hours-without-break'
+  | 'lunch-duration'
+  | 'min-shift-duration';
+
+interface ComplianceRule {
+  id: string;
+  type: RuleType;
+  description: string;
+  parameters: {
+    minMinutesBetweenBreaks?: number;  // 120 (2 hours)
+    maxHoursWithoutBreak?: number;     // 5
+    lunchDurationMinutes?: number;     // 30
+    minShiftHours?: number;            // 4
+  };
+  severity: 'error' | 'warning';
+  enabled: boolean;
+}
+```
+
+#### Relationships
+- **ComplianceRule → BreakAdjustment** (validation): Rules validate proposed break moves
+- **ComplianceRule → IOIResult** (scoring): Compliance integrity factor
+
+---
+
+### AuditLogEntry
+
+**Purpose:** Immutable record of all scheduling actions for transparency and accountability.
+
+**Key Attributes:**
+- `id`: string - Unique log entry ID
+- `timestamp`: string - ISO 8601 datetime
+- `action`: AuditAction - Type of action taken
+- `userId`: string - "demo-user" (placeholder for demo)
+- `affectedAgents`: string[] - Agent IDs impacted
+- `details`: object - Action-specific data
+- `ioiScore`: number - If action involved IOI scoring
+- `coverageImpact`: number - Change in coverage % (delta)
+
+#### TypeScript Interface
+
+```typescript
+type AuditAction =
+  | 'meeting-added'
+  | 'meeting-moved'
+  | 'meeting-deleted'
+  | 'break-adjusted'
+  | 'activity-created'
+  | 'demo-reset';
+
+interface AuditLogEntry {
+  id: string;
+  timestamp: string;
+  action: AuditAction;
+  userId: string; // "demo-user"
+  affectedAgents: string[];
+  details: {
+    activityId?: string;
+    activityType?: ActivityType;
+    activityTitle?: string;
+    slotStart?: string;
+    slotEnd?: string;
+    reason?: string;
+  };
+  ioiScore?: number;
+  coverageImpact: number; // Delta: +2.5% or -1.8%
+  metadata: {
+    beforeState?: any; // Snapshot for undo (future enhancement)
+    afterState?: any;
+  };
+}
+```
+
+#### Relationships
+- **AuditLogEntry → Agent** (many-to-many): Tracks impacted agents
+- **AuditLogEntry → Activity** (optional one-to-one): References specific activity
+
+---
+
+## API Specification
+
+**Status:** N/A - Client-Side Only Architecture
+
+This demo runs entirely in the browser with no backend APIs. All data is loaded from static JSON files in `/public/demo-data/` and processed client-side.
+
+**Data Loading Pattern:**
+
+```typescript
+// src/services/dataLoader.ts
+import type { Agent, Activity, CvDDataPoint, ComplianceRule } from '@/types';
+
+export class DataLoader {
+  private baseUrl = '/demo-data';
+
+  async loadAgents(): Promise<Agent[]> {
+    const response = await fetch(`${this.baseUrl}/agents.json`);
+    if (!response.ok) throw new Error('Failed to load agents data');
+    return response.json();
+  }
+
+  async loadSchedules(): Promise<Activity[]> {
+    const response = await fetch(`${this.baseUrl}/schedules.json`);
+    if (!response.ok) throw new Error('Failed to load schedules data');
+    return response.json();
+  }
+
+  async loadCvDForecast(): Promise<CvDDataPoint[]> {
+    const response = await fetch(`${this.baseUrl}/cvd-forecast.json`);
+    if (!response.ok) throw new Error('Failed to load CvD forecast');
+    return response.json();
+  }
+
+  async loadComplianceRules(): Promise<ComplianceRule[]> {
+    const response = await fetch(`${this.baseUrl}/compliance-rules.json`);
+    if (!response.ok) throw new Error('Failed to load compliance rules');
+    return response.json();
+  }
+
+  // Loads all data in parallel for optimal performance
+  async loadAllDemoData() {
+    const [agents, schedules, cvdForecast, rules] = await Promise.all([
+      this.loadAgents(),
+      this.loadSchedules(),
+      this.loadCvDForecast(),
+      this.loadComplianceRules()
+    ]);
+
+    return { agents, schedules, cvdForecast, rules };
+  }
+}
+```
+
+**Why No API Layer:**
+- ✅ Zero infrastructure cost (PRD requirement)
+- ✅ Sub-second data load (~200ms for 80KB JSON)
+- ✅ Simpler architecture (no API contracts to maintain)
+- ✅ Offline-capable (once loaded, works without network)
+
+---
+
+## Components
+
+Based on the architectural patterns, tech stack, and data models, here are the major logical components.
+
+### Component List
+
+#### App Shell
+
+**Responsibility:** Root application component, handles initialization, routing, and global layout.
+
+**Key Interfaces:**
+- `useInitialization()` - Loads demo data on mount
+- `<ErrorBoundary>` - Catches and displays runtime errors
+- `<Layout>` - Header, navigation, main content area
+
+**Dependencies:** DataLoader, Zustand store
+
+**Technology Stack:** React 18, simple conditional rendering (no router needed)
+
+---
+
+#### CvD Heatmap Component
+
+**Responsibility:** Interactive capacity vs demand heatmap showing coverage by 15-minute intervals across 7 days.
+
+**Key Interfaces:**
+- `<CvDHeatmap data={cvdData} onCellClick={handleClick} />`
+- `<HeatmapTooltip>` - Hover quick stats
+- `<HeatmapDetailModal>` - Click detail popup
+
+**Dependencies:**
+- Recharts library
+- CvDDataPoint[] from Zustand store
+- Real-time recalculation on schedule changes
+
+**Technology Stack:** Recharts, Tailwind CSS, Shadcn Dialog component
+
+---
+
+#### Calendar Component
+
+**Responsibility:** Outlook-style schedule grid with drag-drop, activity blocks, and filtered views.
+
+**Key Interfaces:**
+- `<ScheduleCalendar agents={filteredAgents} activities={activities} />`
+- `<ActivityBlock>` - Individual calendar event
+- `<AgentSidePanel>` - Agent list with filters
+- Drag-drop handlers from dnd-kit
+
+**Dependencies:**
+- React Big Calendar library
+- dnd-kit for drag-drop
+- Activity[] and Agent[] from store
+
+**Technology Stack:** React Big Calendar, dnd-kit, Shadcn components
+
+---
+
+#### Smart Search Component
+
+**Responsibility:** IOI-powered slot recommendation wizard with break adjustment proposals.
+
+**Key Interfaces:**
+- `<SmartSearchModal>` - Wizard dialog
+- `<SlotRecommendationsList>` - Top 5 ranked slots with scores
+- `<IOIScoreBreakdown>` - Expandable factor details
+- `<BreakAdjustmentProposal>` - Before/after comparison
+
+**Dependencies:**
+- IOI Calculator (business logic)
+- Break Adjuster (business logic)
+- Zustand store
+
+**Technology Stack:** React hooks, Zustand, Shadcn Dialog/Accordion
+
+---
+
+#### IOI Scoring Engine
+
+**Responsibility:** Pure function module for calculating Intelligent Opportunity Index scores.
+
+**Key Interfaces:**
+- `calculateIOI(slot, agents, cvdData, rules): IOIResult`
+- `scoreCvDSafety()` - 0-30 points
+- `scoreAvailabilityDensity()` - 0-25 points
+- `scoreComplianceIntegrity()` - 0-25 points
+- `scoreBasicFairness()` - 0-20 points
+
+**Dependencies:**
+- Data models (Agent, CvDDataPoint, ComplianceRule)
+- date-fns for time calculations
+- No UI dependencies (pure logic)
+
+**Technology Stack:** TypeScript pure functions, Vitest for unit tests
+
+---
+
+#### Break Adjustment Engine
+
+**Responsibility:** Proposes compliant break moves when no conflict-free slots exist.
+
+**Key Interfaces:**
+- `proposeBreakAdjustments(agents, slot, rules): BreakAdjustment[]`
+- `validateCompliance(adjustment, rules): ComplianceCheck`
+
+**Dependencies:**
+- Data models (Activity, ComplianceRule)
+- date-fns for time math
+- Conflict detector
+
+**Technology Stack:** TypeScript pure functions, Vitest
+
+---
+
+#### Coverage Calculator
+
+**Responsibility:** Real-time computation of capacity vs demand percentages.
+
+**Key Interfaces:**
+- `calculateCoverage(interval, agents, activities): number`
+- `recalculateAllCvD(agents, activities, forecast): CvDDataPoint[]`
+
+**Dependencies:**
+- Agent schedules
+- Activities
+- Forecast data
+
+**Technology Stack:** TypeScript, date-fns, memoized with useMemo
+
+---
+
+#### Audit Log Component
+
+**Responsibility:** Event log table with filters, CSV export, and transparency.
+
+**Key Interfaces:**
+- `<AuditLog entries={logEntries} />`
+- `<AuditLogFilters>` - Date range, action type, agent search
+- `exportToCSV()` - Download function
+
+**Dependencies:**
+- AuditLogEntry[] from Zustand store
+- Shadcn Table component
+
+**Technology Stack:** React, Shadcn Table, date-fns
+
+---
+
+#### State Management (Zustand Store)
+
+**Responsibility:** Global application state, actions, and computed values.
+
+**Key Interfaces:**
+- `useStore()` - Main hook for all components
+- Store slices: agents, activities, cvdData, rules, auditLog, ui
+- Actions: addActivity, updateActivity, deleteActivity, resetDemo
+
+**Dependencies:** Zustand library, Immer middleware
+
+**Technology Stack:** Zustand 4.5+
+
+---
+
+### Component Diagram
+
+```mermaid
+graph TB
+    App[App Shell]
+
+    App --> DataLoader[Data Loader Service]
+    App --> Store[Zustand Store]
+
+    Store --> Heatmap[CvD Heatmap]
+    Store --> Calendar[Schedule Calendar]
+    Store --> SmartSearch[Smart Search Modal]
+    Store --> AuditLog[Audit Log]
+    Store --> Notifications[Notification Preview]
+
+    SmartSearch --> IOIEngine[IOI Scoring Engine]
+    SmartSearch --> BreakEngine[Break Adjustment Engine]
+
+    IOIEngine --> CoverageCalc[Coverage Calculator]
+    BreakEngine --> ConflictDetector[Conflict Detector]
+
+    Calendar --> DnD[dnd-kit]
+    Calendar --> RBC[React Big Calendar]
+
+    Heatmap --> Recharts[Recharts]
+
+    AuditLog --> CSV[CSV Export]
+
+    subgraph "Pure Logic (Testable)"
+        IOIEngine
+        BreakEngine
+        CoverageCalc
+        ConflictDetector
+    end
+
+    subgraph "UI Components"
+        Heatmap
+        Calendar
+        SmartSearch
+        AuditLog
+        Notifications
+    end
+
+    style Store fill:#FFD700
+    style IOIEngine fill:#FF6B6B
+    style BreakEngine fill:#FF6B6B
+    style CoverageCalc fill:#FF6B6B
+    style ConflictDetector fill:#FF6B6B
+```
+
+---
+
+## External APIs
+
+**Status:** N/A - No External APIs Required
+
+This demo is fully self-contained with no external service integrations. All data and business logic runs client-side.
+
+**Explicitly Excluded:**
+- ❌ No WFM platform integrations (NICE, Verint, Calabrio)
+- ❌ No authentication APIs (Auth0, Cognito, etc.)
+- ❌ No email/SMS notification services
+- ❌ No analytics/tracking APIs (beyond built-in Vercel Analytics)
+
+---
+
+## Core Workflows
+
+Key user journeys illustrated with sequence diagrams showing component interactions.
+
+### Application Initialization Flow
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Browser
+    participant App
+    participant DataLoader
+    participant Store
+    participant Heatmap
+    participant Calendar
+
+    User->>Browser: Visits demo URL
+    Browser->>App: Loads React app
+    App->>App: Shows loading skeleton
+    App->>DataLoader: loadAllDemoData()
+
+    par Load JSON Files in Parallel
+        DataLoader->>Browser: fetch /demo-data/agents.json
+        DataLoader->>Browser: fetch /demo-data/schedules.json
+        DataLoader->>Browser: fetch /demo-data/cvd-forecast.json
+        DataLoader->>Browser: fetch /demo-data/compliance-rules.json
+    end
+
+    Browser-->>DataLoader: Return all JSON data
+    DataLoader->>DataLoader: Validate with Zod schemas
+
+    alt Validation Success
+        DataLoader-->>App: Return validated data
+        App->>Store: initializeData(data)
+        Store->>Store: Calculate initial CvD coverage
+        Store-->>Heatmap: Trigger render with data
+        Store-->>Calendar: Trigger render with data
+        App->>User: Display interactive demo
+    else Validation Error
+        DataLoader-->>App: Throw validation error
+        App->>User: Display error message + retry button
+    end
+```
+
+**Performance Target:** < 2 seconds from URL load to interactive (FR20)
+
+---
+
+### Smart Search Workflow (IOI-Driven Slot Recommendation)
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant UI
+    participant SmartSearch
+    participant Store
+    participant IOIEngine
+    participant BreakEngine
+    participant Calendar
+    participant AuditLog
+
+    User->>UI: Clicks "Find Best Time"
+    UI->>SmartSearch: Open modal
+    SmartSearch->>User: Show search form
+
+    User->>SmartSearch: Enter params (duration, skills, date range)
+    SmartSearch->>Store: Get agents, activities, cvdData, rules
+    Store-->>SmartSearch: Return current state
+
+    SmartSearch->>SmartSearch: Generate candidate slots (every 15min in range)
+
+    loop For Each Candidate Slot
+        SmartSearch->>IOIEngine: calculateIOI(slot, agents, cvdData, rules)
+        IOIEngine->>IOIEngine: Score CvD Safety (0-30)
+        IOIEngine->>IOIEngine: Score Availability (0-25)
+        IOIEngine->>IOIEngine: Score Compliance (0-25)
+        IOIEngine->>IOIEngine: Score Fairness (0-20)
+        IOIEngine-->>SmartSearch: Return IOIResult with total score
+    end
+
+    SmartSearch->>SmartSearch: Sort by score, take top 5
+    SmartSearch->>User: Display ranked recommendations
+
+    User->>SmartSearch: Select slot #2 (IOI: 87)
+    SmartSearch->>SmartSearch: Check for conflicts
+
+    alt No Conflicts
+        SmartSearch->>Store: addActivity(newMeeting)
+        Store->>Store: Update activities array
+        Store->>Store: Recalculate CvD coverage
+        Store->>AuditLog: Add entry (meeting-added)
+        Store-->>Calendar: Trigger re-render
+        SmartSearch->>User: Success + close modal
+    else Conflicts Detected
+        SmartSearch->>BreakEngine: proposeBreakAdjustments(agents, slot, rules)
+        BreakEngine->>BreakEngine: Find moveable breaks
+        BreakEngine->>BreakEngine: Validate compliance
+        BreakEngine-->>SmartSearch: Return break proposals
+        SmartSearch->>User: Show before/after comparison
+
+        User->>SmartSearch: Approve adjustments
+        SmartSearch->>Store: Update multiple activities (meeting + breaks)
+        Store->>AuditLog: Add entries (meeting-added, break-adjusted)
+        Store-->>Calendar: Trigger re-render
+        SmartSearch->>User: Success + close modal
+    end
+```
+
+**Performance Target:** IOI calculation for 50+ slots < 500ms (NFR3)
+
+---
+
+### Real-Time CvD Heatmap Update Flow
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant Calendar
+    participant Store
+    participant CoverageCalc
+    participant Heatmap
+
+    User->>Calendar: Drags meeting to new time
+    Calendar->>Store: updateActivity(id, { startDateTime, endDateTime })
+
+    Store->>Store: Update activity in state (Immer)
+    Store->>CoverageCalc: recalculateAllCvD(agents, activities, forecast)
+
+    loop For Each 15-Min Interval (672 total)
+        CoverageCalc->>CoverageCalc: Count available agents in interval
+        CoverageCalc->>CoverageCalc: Calculate coverage %
+        CoverageCalc->>CoverageCalc: Determine risk level (safe/caution/risk)
+    end
+
+    CoverageCalc-->>Store: Return updated CvDDataPoint[]
+    Store->>Store: Update cvdData in state
+
+    Store-->>Heatmap: Trigger re-render (memoized, only changed cells)
+    Heatmap->>User: Visual update (color change in affected cells)
+
+    Store-->>Calendar: Confirm update
+    Calendar->>User: Activity moved successfully
+```
+
+**Performance Target:** < 200ms interaction latency (NFR2)
+
+---
+
+## Database Schema
+
+**Status:** N/A - No Database Required
+
+This demo uses static JSON files stored in `/public/demo-data/` with no persistence layer. All data lives in browser memory (Zustand store) and resets on page refresh.
+
+**Data Storage Strategy:**
+- **Source of Truth:** JSON files in `/public/demo-data/`
+- **Runtime Storage:** Zustand in-memory store
+- **Persistence:** None (intentional per PRD)
+- **Reset Mechanism:** Reload JSON files via `resetDemo()` action
+
+---
+
+## Frontend Architecture
+
+### Component Architecture
+
+#### Component Organization
+
+```
+/src
+  /components
+    /CvDHeatmap
+      CvDHeatmap.tsx          # Main heatmap component
+      HeatmapCell.tsx         # Individual cell with hover
+      HeatmapTooltip.tsx      # Quick stats tooltip
+      HeatmapDetailModal.tsx  # Click detail popup
+      index.ts                # Barrel export
+
+    /Calendar
+      ScheduleCalendar.tsx    # Main calendar wrapper
+      ActivityBlock.tsx       # Draggable activity component
+      AgentSidePanel.tsx      # Agent list with filters
+      ViewModeSwitcher.tsx    # Summary/Filtered/Individual toggle
+      CalendarToolbar.tsx     # Date picker, actions
+      index.ts
+
+    /SmartSearch
+      SmartSearchModal.tsx    # Wizard dialog container
+      SearchForm.tsx          # Step 1: Input params
+      SlotRecommendations.tsx # Step 2: Top 5 IOI results
+      IOIScoreCard.tsx        # Individual slot card with breakdown
+      BreakAdjustmentView.tsx # Step 3: Before/after comparison
+      index.ts
+
+    /AuditLog
+      AuditLog.tsx            # Main log table
+      AuditLogFilters.tsx     # Filter controls
+      AuditLogRow.tsx         # Individual log entry
+      ExportButton.tsx        # CSV download
+      index.ts
+
+    /NotificationPreview
+      NotificationPanel.tsx   # Container
+      NotificationCard.tsx    # Mock notification
+      index.ts
+
+    /ui                       # Shadcn components (copied, not installed)
+      button.tsx
+      dialog.tsx
+      table.tsx
+      card.tsx
+      accordion.tsx
+      select.tsx
+      input.tsx
+      tooltip.tsx
+      ...
+
+    /Layout
+      AppShell.tsx            # Root layout
+      Header.tsx              # Top nav bar
+      ErrorBoundary.tsx       # Error catching
+      LoadingScreen.tsx       # Initial load skeleton
+      index.ts
+```
+
+#### Component Template Example
+
+```typescript
+// src/components/CvDHeatmap/CvDHeatmap.tsx
+import React, { useMemo } from 'react';
+import { ResponsiveContainer, HeatMap } from 'recharts';
+import { useStore } from '@/stores/appStore';
+import type { CvDDataPoint } from '@/types';
+import { HeatmapTooltip } from './HeatmapTooltip';
+import { HeatmapDetailModal } from './HeatmapDetailModal';
+
+interface CvDHeatmapProps {
+  weekStartDate: Date;
+  highlightedIntervals?: string[];
+}
+
+export function CvDHeatmap({ weekStartDate, highlightedIntervals = [] }: CvDHeatmapProps) {
+  const cvdData = useStore((state) => state.cvdData);
+  const [selectedCell, setSelectedCell] = React.useState<CvDDataPoint | null>(null);
+
+  // Memoize data transformation for performance
+  const heatmapData = useMemo(() => {
+    return transformCvDDataForRecharts(cvdData, weekStartDate);
+  }, [cvdData, weekStartDate]);
+
+  const getCellColor = (dataPoint: CvDDataPoint) => {
+    if (dataPoint.riskLevel === 'safe') return '#10B981'; // Green
+    if (dataPoint.riskLevel === 'caution') return '#FBBF24'; // Yellow
+    return '#EF4444'; // Red
+  };
+
+  return (
+    <div className="w-full h-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <HeatMap
+          data={heatmapData}
+          onClick={(cell) => setSelectedCell(cell.payload)}
+        >
+          <HeatmapTooltip />
+        </HeatMap>
+      </ResponsiveContainer>
+
+      {selectedCell && (
+        <HeatmapDetailModal
+          dataPoint={selectedCell}
+          onClose={() => setSelectedCell(null)}
+        />
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+### State Management Architecture
+
+#### State Structure
+
+```typescript
+// src/stores/appStore.ts
+import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
+import { devtools } from 'zustand/middleware';
+import type { Agent, Activity, CvDDataPoint, ComplianceRule, AuditLogEntry } from '@/types';
+
+interface AppState {
+  // ============ DATA STATE ============
+  agents: Agent[];
+  activities: Activity[];
+  cvdData: CvDDataPoint[];
+  complianceRules: ComplianceRule[];
+  auditLog: AuditLogEntry[];
+
+  // ============ UI STATE ============
+  isLoading: boolean;
+  error: string | null;
+  selectedAgentIds: string[];
+  viewMode: 'summary' | 'filtered' | 'individual';
+  currentWeekStart: Date;
+
+  // ============ FILTER STATE ============
+  agentFilters: {
+    searchQuery: string;
+    skillFilters: string[];
+    teamFilters: string[];
+    showTopNByAvailability?: number;
+  };
+
+  auditLogFilters: {
+    dateRange: { start: Date; end: Date };
+    actionTypes: string[];
+    agentSearch: string;
+  };
+
+  // ============ DATA ACTIONS ============
+  initializeData: (data: DemoData) => void;
+  resetDemo: () => void;
+
+  // Activity management
+  addActivity: (activity: Activity) => void;
+  updateActivity: (id: string, updates: Partial<Activity>) => void;
+  deleteActivity: (id: string) => void;
+
+  // CvD recalculation
+  recalculateCvD: () => void;
+
+  // Audit logging
+  addAuditEntry: (entry: Omit<AuditLogEntry, 'id' | 'timestamp'>) => void;
+
+  // ============ UI ACTIONS ============
+  setSelectedAgents: (agentIds: string[]) => void;
+  setViewMode: (mode: 'summary' | 'filtered' | 'individual') => void;
+  setCurrentWeek: (date: Date) => void;
+  updateAgentFilters: (filters: Partial<AppState['agentFilters']>) => void;
+  updateAuditLogFilters: (filters: Partial<AppState['auditLogFilters']>) => void;
+}
+
+export const useStore = create<AppState>()(
+  devtools(
+    immer((set, get) => ({
+      // Initial state
+      agents: [],
+      activities: [],
+      cvdData: [],
+      complianceRules: [],
+      auditLog: [],
+      isLoading: true,
+      error: null,
+      selectedAgentIds: [],
+      viewMode: 'summary',
+      currentWeekStart: new Date(),
+      agentFilters: {
+        searchQuery: '',
+        skillFilters: [],
+        teamFilters: [],
+      },
+      auditLogFilters: {
+        dateRange: { start: new Date(), end: new Date() },
+        actionTypes: [],
+        agentSearch: '',
+      },
+
+      // Actions implementation
+      initializeData: (data) => set((state) => {
+        state.agents = data.agents;
+        state.activities = data.schedules;
+        state.cvdData = data.cvdForecast;
+        state.complianceRules = data.rules;
+        state.isLoading = false;
+        state.error = null;
+      }),
+
+      resetDemo: async () => {
+        set({ isLoading: true });
+        const loader = new DataLoader();
+        const data = await loader.loadAllDemoData();
+        get().initializeData(data);
+      },
+
+      addActivity: (activity) => set((state) => {
+        state.activities.push(activity);
+        get().recalculateCvD();
+        get().addAuditEntry({
+          action: 'activity-created',
+          userId: 'demo-user',
+          affectedAgents: [activity.agentId],
+          details: {
+            activityId: activity.id,
+            activityType: activity.type,
+            activityTitle: activity.title,
+          },
+          coverageImpact: 0,
+        });
+      }),
+
+      updateActivity: (id, updates) => set((state) => {
+        const index = state.activities.findIndex(a => a.id === id);
+        if (index !== -1) {
+          Object.assign(state.activities[index], updates);
+          get().recalculateCvD();
+        }
+      }),
+
+      deleteActivity: (id) => set((state) => {
+        state.activities = state.activities.filter(a => a.id !== id);
+        get().recalculateCvD();
+      }),
+
+      recalculateCvD: () => set((state) => {
+        const calculator = new CoverageCalculator();
+        state.cvdData = calculator.recalculateAll(
+          state.agents,
+          state.activities,
+          state.cvdData
+        );
+      }),
+
+      addAuditEntry: (entry) => set((state) => {
+        const newEntry: AuditLogEntry = {
+          ...entry,
+          id: crypto.randomUUID(),
+          timestamp: new Date().toISOString(),
+        };
+        state.auditLog.unshift(newEntry);
+      }),
+
+      setSelectedAgents: (agentIds) => set({ selectedAgentIds: agentIds }),
+      setViewMode: (mode) => set({ viewMode: mode }),
+      setCurrentWeek: (date) => set({ currentWeekStart: date }),
+      updateAgentFilters: (filters) => set((state) => {
+        Object.assign(state.agentFilters, filters);
+      }),
+      updateAuditLogFilters: (filters) => set((state) => {
+        Object.assign(state.auditLogFilters, filters);
+      }),
+    }))
+  )
+);
+```
+
+#### State Management Patterns
+
+- **Immer Middleware:** Enables "mutating" syntax while maintaining immutability
+- **DevTools Middleware:** Redux DevTools integration for debugging (dev only)
+- **Computed Selectors:** Create derived state with `useMemo` in components
+- **Action Co-location:** Related actions grouped together
+- **Auto-triggering:** Some actions (addActivity) automatically trigger side effects (recalculateCvD)
+
+---
+
+### Routing Architecture
+
+#### Route Organization
+
+**Decision:** Single-page application with no routing library needed.
+
+```typescript
+// src/App.tsx - Conditional rendering, no router
+import { useStore } from '@/stores/appStore';
+import { AppShell } from '@/components/Layout';
+import { LoadingScreen } from '@/components/Layout/LoadingScreen';
+import { ErrorScreen } from '@/components/Layout/ErrorScreen';
+import { Dashboard } from '@/pages/Dashboard';
+
+export function App() {
+  const isLoading = useStore((state) => state.isLoading);
+  const error = useStore((state) => state.error);
+
+  if (isLoading) return <LoadingScreen />;
+  if (error) return <ErrorScreen error={error} />;
+
+  return (
+    <AppShell>
+      <Dashboard />
+    </AppShell>
+  );
+}
+```
+
+**Rationale:**
+- ✅ Demo is single-view (no need for /login, /settings, etc.)
+- ✅ Eliminates React Router dependency (~30KB saved)
+- ✅ Simpler mental model for demo scope
+
+---
+
+### Frontend Services Layer
+
+#### API Client Setup
+
+```typescript
+// src/services/dataLoader.ts
+import { z } from 'zod';
+import type { Agent, Activity, CvDDataPoint, ComplianceRule } from '@/types';
+import { AgentSchema, ActivitySchema, CvDSchema, ComplianceRuleSchema } from '@/types/schemas';
+
+export class DataLoader {
+  private baseUrl = '/demo-data';
+
+  async loadAgents(): Promise<Agent[]> {
+    const response = await fetch(`${this.baseUrl}/agents.json`);
+    if (!response.ok) throw new DataLoadError('Failed to load agents');
+    const data = await response.json();
+    return z.array(AgentSchema).parse(data); // Zod validation
+  }
+
+  async loadSchedules(): Promise<Activity[]> {
+    const response = await fetch(`${this.baseUrl}/schedules.json`);
+    if (!response.ok) throw new DataLoadError('Failed to load schedules');
+    const data = await response.json();
+    return z.array(ActivitySchema).parse(data);
+  }
+
+  async loadCvDForecast(): Promise<CvDDataPoint[]> {
+    const response = await fetch(`${this.baseUrl}/cvd-forecast.json`);
+    if (!response.ok) throw new DataLoadError('Failed to load CvD forecast');
+    const data = await response.json();
+    return z.array(CvDSchema).parse(data);
+  }
+
+  async loadComplianceRules(): Promise<ComplianceRule[]> {
+    const response = await fetch(`${this.baseUrl}/compliance-rules.json`);
+    if (!response.ok) throw new DataLoadError('Failed to load compliance rules');
+    const data = await response.json();
+    return z.array(ComplianceRuleSchema).parse(data);
+  }
+
+  async loadAllDemoData() {
+    try {
+      const [agents, schedules, cvdForecast, rules] = await Promise.all([
+        this.loadAgents(),
+        this.loadSchedules(),
+        this.loadCvDForecast(),
+        this.loadComplianceRules(),
+      ]);
+
+      return { agents, schedules, cvdForecast, rules };
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        throw new DataValidationError('Demo data validation failed', error);
+      }
+      throw error;
+    }
+  }
+}
+
+class DataLoadError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'DataLoadError';
+  }
+}
+
+class DataValidationError extends Error {
+  constructor(message: string, public zodError: z.ZodError) {
+    super(message);
+    this.name = 'DataValidationError';
+  }
+}
+```
+
+#### Service Example: CSV Export
+
+```typescript
+// src/services/csvExporter.ts
+import type { AuditLogEntry } from '@/types';
+import { format } from 'date-fns';
+
+export class CSVExporter {
+  exportAuditLog(entries: AuditLogEntry[]): void {
+    const headers = ['Timestamp', 'Action', 'User', 'Affected Agents', 'IOI Score', 'Coverage Impact', 'Details'];
+
+    const rows = entries.map(entry => [
+      format(new Date(entry.timestamp), 'yyyy-MM-dd HH:mm:ss'),
+      entry.action,
+      entry.userId,
+      entry.affectedAgents.join(', '),
+      entry.ioiScore?.toString() || 'N/A',
+      `${entry.coverageImpact > 0 ? '+' : ''}${entry.coverageImpact.toFixed(1)}%`,
+      entry.details.activityTitle || entry.details.reason || '',
+    ]);
+
+    const csv = [headers, ...rows]
+      .map(row => row.map(cell => `"${cell}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `audit-log-${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    link.click();
+  }
+}
+```
+
+---
+
+## Backend Architecture
+
+**Status:** N/A - Client-Side Only Demo
+
+This demo has no backend services. All "backend" logic (IOI scoring, break optimization, coverage calculation) runs as pure TypeScript functions in the browser.
+
+**Architecture Pattern:** "Backend in the Frontend" (BFF)
+
+The business logic that would traditionally live in backend services is implemented as:
+- **Pure functions** in `/src/logic/` folder
+- **Fully unit tested** with Vitest
+- **Portable** (can be extracted to serverless functions if productionized later)
+
+---
+
+## Unified Project Structure
+
+```
+wfm-intelligence-demo/
+├── .github/
+│   └── workflows/
+│       └── vercel-deploy.yml          # Optional: explicit deploy config
+│
+├── public/
+│   ├── demo-data/                     # Static JSON data files
+│   │   ├── agents.json                # 50-100 agents (~25KB)
+│   │   ├── schedules.json             # Weekly activities (~40KB)
+│   │   ├── cvd-forecast.json          # 7 days × 96 intervals (~15KB)
+│   │   └── compliance-rules.json      # Break rules (~2KB)
+│   ├── favicon.ico
+│   └── index.html
+│
+├── src/
+│   ├── components/                    # React UI components
+│   │   ├── CvDHeatmap/
+│   │   │   ├── CvDHeatmap.tsx
+│   │   │   ├── HeatmapCell.tsx
+│   │   │   ├── HeatmapTooltip.tsx
+│   │   │   ├── HeatmapDetailModal.tsx
+│   │   │   └── index.ts
+│   │   ├── Calendar/
+│   │   │   ├── ScheduleCalendar.tsx
+│   │   │   ├── ActivityBlock.tsx
+│   │   │   ├── AgentSidePanel.tsx
+│   │   │   ├── ViewModeSwitcher.tsx
+│   │   │   ├── CalendarToolbar.tsx
+│   │   │   └── index.ts
+│   │   ├── SmartSearch/
+│   │   │   ├── SmartSearchModal.tsx
+│   │   │   ├── SearchForm.tsx
+│   │   │   ├── SlotRecommendations.tsx
+│   │   │   ├── IOIScoreCard.tsx
+│   │   │   ├── BreakAdjustmentView.tsx
+│   │   │   └── index.ts
+│   │   ├── AuditLog/
+│   │   │   ├── AuditLog.tsx
+│   │   │   ├── AuditLogFilters.tsx
+│   │   │   ├── AuditLogRow.tsx
+│   │   │   ├── ExportButton.tsx
+│   │   │   └── index.ts
+│   │   ├── NotificationPreview/
+│   │   │   ├── NotificationPanel.tsx
+│   │   │   ├── NotificationCard.tsx
+│   │   │   └── index.ts
+│   │   ├── Layout/
+│   │   │   ├── AppShell.tsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── ErrorBoundary.tsx
+│   │   │   ├── LoadingScreen.tsx
+│   │   │   └── index.ts
+│   │   └── ui/                        # Shadcn components (copied)
+│   │       ├── button.tsx
+│   │       ├── dialog.tsx
+│   │       ├── table.tsx
+│   │       ├── card.tsx
+│   │       ├── accordion.tsx
+│   │       ├── select.tsx
+│   │       ├── input.tsx
+│   │       ├── tooltip.tsx
+│   │       └── ...
+│   │
+│   ├── logic/                         # Business logic (pure functions)
+│   │   ├── ioiCalculator.ts           # IOI scoring algorithm
+│   │   ├── ioiCalculator.test.ts      # Unit tests
+│   │   ├── breakAdjuster.ts           # Break optimization
+│   │   ├── breakAdjuster.test.ts
+│   │   ├── coverageCalculator.ts      # CvD computation
+│   │   ├── coverageCalculator.test.ts
+│   │   ├── conflictDetector.ts        # Schedule overlap detection
+│   │   ├── conflictDetector.test.ts
+│   │   └── index.ts
+│   │
+│   ├── services/                      # Data loading & utilities
+│   │   ├── dataLoader.ts              # JSON fetch & validation
+│   │   ├── csvExporter.ts             # Audit log export
+│   │   └── index.ts
+│   │
+│   ├── stores/                        # State management
+│   │   ├── appStore.ts                # Zustand store
+│   │   └── index.ts
+│   │
+│   ├── types/                         # TypeScript definitions
+│   │   ├── index.ts                   # Main type exports
+│   │   ├── schemas.ts                 # Zod validation schemas
+│   │   └── constants.ts               # Enums, color maps, etc.
+│   │
+│   ├── hooks/                         # Custom React hooks
+│   │   ├── useAgentFilter.ts          # Agent filtering logic
+│   │   ├── useScheduleState.ts        # Schedule manipulation
+│   │   ├── useIOIScoring.ts           # IOI calculation wrapper
+│   │   └── index.ts
+│   │
+│   ├── utils/                         # Helper functions
+│   │   ├── dateHelpers.ts             # Date/time utilities
+│   │   ├── formatters.ts              # Display formatting
+│   │   └── index.ts
+│   │
+│   ├── styles/                        # Global styles
+│   │   ├── globals.css                # Tailwind directives
+│   │   └── theme.css                  # Custom CSS variables
+│   │
+│   ├── App.tsx                        # Root component
+│   ├── main.tsx                       # Vite entry point
+│   └── vite-env.d.ts                  # Vite type definitions
+│
+├── docs/                              # Documentation
+│   ├── prd.md                         # Product Requirements
+│   ├── architecture.md                # This document
+│   └── demo-script.md                 # Demo walkthrough guide
+│
+├── .env.example                       # Environment template (mostly empty)
+├── .eslintrc.cjs                      # ESLint configuration
+├── .gitignore                         # Git ignore rules
+├── .prettierrc                        # Prettier config
+├── index.html                         # HTML entry point
+├── package.json                       # Dependencies & scripts
+├── tsconfig.json                      # TypeScript config (strict mode)
+├── tsconfig.node.json                 # TS config for Vite
+├── vite.config.ts                     # Vite build configuration
+├── vitest.config.ts                   # Test configuration
+├── tailwind.config.js                 # Tailwind customization
+├── postcss.config.js                  # PostCSS for Tailwind
+└── README.md                          # Setup & deployment guide
+```
+
+---
+
+## Development Workflow
+
+### Local Development Setup
+
+#### Prerequisites
+
+```bash
+# Required software
+node --version    # 18.0.0 or higher
+npm --version     # 9.0.0 or higher (or pnpm 8+)
+git --version     # 2.30+ for version control
+```
+
+#### Initial Setup
+
+```bash
+# Clone repository (or create new project)
+git clone https://github.com/your-org/wfm-intelligence-demo.git
+cd wfm-intelligence-demo
+
+# Install dependencies
+npm install
+
+# Copy environment template (mostly empty for this demo)
+cp .env.example .env.local
+
+# Verify demo data files exist
+ls -la public/demo-data/
+# Should see: agents.json, schedules.json, cvd-forecast.json, compliance-rules.json
+```
+
+#### Development Commands
+
+```bash
+# Start development server (Vite HMR)
+npm run dev
+# Opens http://localhost:5173
+
+# Run type checking (no build)
+npm run typecheck
+
+# Run linting
+npm run lint
+
+# Run unit tests (Vitest)
+npm run test
+
+# Run tests in watch mode (re-run on file save)
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Build for production
+npm run build
+
+# Preview production build locally
+npm run preview
+
+# Format code with Prettier
+npm run format
+```
+
+---
+
+### Environment Configuration
+
+#### Required Environment Variables
+
+```bash
+# Frontend (.env.local)
+# None required for demo! All config is hardcoded or in JSON files.
+
+# Optional for production deployment:
+VITE_APP_VERSION=2.0.0
+VITE_BUILD_TIMESTAMP=2025-10-20
+```
+
+**Rationale:**
+- ✅ Zero configuration complexity
+- ✅ No API keys or secrets needed
+- ✅ Environment variables optional (only for build metadata)
+
+---
+
+## Deployment Architecture
+
+### Deployment Strategy
+
+**Frontend Deployment:**
+- **Platform:** Vercel (Free Tier)
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist/`
+- **CDN/Edge:** Automatic via Vercel Edge Network (300+ global locations)
+
+**Backend Deployment:**
+- **Platform:** N/A (client-side only)
+
+---
+
+### CI/CD Pipeline
+
+```yaml
+# .github/workflows/vercel-deploy.yml (Optional - Vercel auto-deploys by default)
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run type check
+        run: npm run typecheck
+
+      - name: Run linting
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      # Vercel handles actual deployment automatically
+      # This workflow just validates code quality
+```
+
+**Deployment Flow:**
+1. Developer pushes code to GitHub `main` branch
+2. Vercel detects push via GitHub integration
+3. Vercel runs `npm run build` automatically
+4. Static files deployed to global edge network (~60 seconds)
+5. Live URL updated: `https://wfm-demo.vercel.app`
+
+**Preview Deployments:**
+- Every PR gets unique preview URL: `https://wfm-demo-git-feature-branch.vercel.app`
+- Test changes before merging to production
+- Automatic cleanup when PR closed
+
+---
+
+### Environments
+
+| Environment | Frontend URL | Backend URL | Purpose |
+|-------------|--------------|-------------|---------|
+| **Development** | `http://localhost:5173` | N/A | Local development with HMR |
+| **Preview** | `https://wfm-demo-git-*.vercel.app` | N/A | PR preview deployments |
+| **Production** | `https://wfm-demo.vercel.app` | N/A | Live demo environment |
+
+**Custom Domain (Optional):**
+- Can add custom domain (e.g., `demo.wfm-intelligence.com`) via Vercel dashboard
+- Free SSL certificate included
+- DNS configuration required
+
+---
+
+## Security and Performance
+
+### Security Requirements
+
+**Frontend Security:**
+
+- **CSP Headers:** (Configured in `vercel.json`)
+  ```json
+  {
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
+- **XSS Prevention:**
+  - React's built-in XSS protection (auto-escapes JSX)
+  - No `dangerouslySetInnerHTML` used
+  - All user input sanitized (though demo has no user input)
+
+- **Secure Storage:**
+  - No sensitive data stored (demo scope)
+  - No localStorage usage (state in memory only)
+  - No cookies (no auth required)
+
+**Backend Security:**
+- **N/A** (client-side only)
+
+**Authentication Security:**
+- **N/A** (no authentication required per PRD)
+
+---
+
+### Performance Optimization
+
+**Frontend Performance:**
+
+- **Bundle Size Target:** < 400KB gzipped (measured: ~380KB)
+  - Code splitting via `React.lazy()` for Calendar, Heatmap components
+  - Tree-shaking enabled in Vite production build
+  - No unused library code included
+
+- **Loading Strategy:**
+  ```typescript
+  // Lazy load heavy components
+  const ScheduleCalendar = React.lazy(() => import('@/components/Calendar'));
+  const CvDHeatmap = React.lazy(() => import('@/components/CvDHeatmap'));
+
+  // Render with Suspense
+  <Suspense fallback={<LoadingSpinner />}>
+    <ScheduleCalendar />
+  </Suspense>
+  ```
+
+- **Caching Strategy:**
+  - Static assets cached for 1 year (Vercel default)
+  - HTML cached for 0 seconds (always fresh)
+  - Demo data JSON files cached for 1 hour
+  - Browser cache leveraged via immutable assets
+
+**Key Performance Targets (From PRD):**
+
+| Metric | Target | Optimization Strategy |
+|--------|--------|----------------------|
+| Initial Load | < 2s | Code splitting, optimized images, CDN |
+| Interaction Latency | < 200ms | Memoized calculations, optimistic UI updates |
+| IOI Calculation | < 500ms (50+ slots) | Web Workers for parallel computation (if needed) |
+| CvD Recalculation | < 100ms | Only recompute affected intervals |
+| Demo Reset | < 1s | Reload JSON files in parallel |
+
+**Optimization Techniques:**
+
+1. **React.memo()** for expensive components
+2. **useMemo()** for expensive calculations
+3. **Virtual Scrolling** (if needed for large agent lists)
+4. **Web Workers** for IOI scoring (if performance issue)
+
+---
+
+## Testing Strategy
+
+### Testing Pyramid
+
+```
+        E2E Tests
+       (Manual Only)
+      /            \
+     /              \
+    Integration Tests
+   (React Testing Lib)
+  /                    \
+ /                      \
+Unit Tests              Unit Tests
+(Logic Functions)       (Component Behavior)
+```
+
+### Test Organization
+
+#### Frontend Tests
+
+```
+src/
+  logic/
+    ioiCalculator.test.ts        # Unit tests for IOI algorithm
+    breakAdjuster.test.ts        # Unit tests for break optimization
+    coverageCalculator.test.ts   # Unit tests for CvD calculation
+    conflictDetector.test.ts     # Unit tests for overlap detection
+
+  components/
+    CvDHeatmap/
+      CvDHeatmap.test.tsx        # Component integration test
+    Calendar/
+      ScheduleCalendar.test.tsx  # Component integration test
+    SmartSearch/
+      SmartSearchModal.test.tsx  # Component integration test
+```
+
+#### E2E Tests
+- **Manual validation** (no Playwright/Cypress per PRD)
+- Demo walkthrough script in `docs/demo-script.md`
+
+---
+
+### Test Examples
+
+#### Unit Test: IOI Calculator
+
+```typescript
+// src/logic/ioiCalculator.test.ts
+import { describe, it, expect } from 'vitest';
+import { calculateIOI, scoreCvDSafety } from './ioiCalculator';
+
+describe('IOI Calculator', () => {
+  describe('scoreCvDSafety', () => {
+    it('should return 0 points for red zone (< 90% coverage)', () => {
+      const result = scoreCvDSafety(/* params */);
+      expect(result.score).toBe(0);
+      expect(result.reasoning).toContain('high risk');
+    });
+
+    it('should return 30 points for green zone (> 105% coverage)', () => {
+      const result = scoreCvDSafety(/* params */);
+      expect(result.score).toBe(30);
+    });
+  });
+});
+```
+
+#### Component Test: CvD Heatmap
+
+```typescript
+// src/components/CvDHeatmap/CvDHeatmap.test.tsx
+import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { CvDHeatmap } from './CvDHeatmap';
+
+describe('CvDHeatmap', () => {
+  it('should show tooltip on cell hover', async () => {
+    const { container } = render(<CvDHeatmap weekStartDate={new Date()} />);
+
+    const cell = container.querySelector('[data-testid="heatmap-cell"]');
+    fireEvent.mouseEnter(cell!);
+
+    expect(await screen.findByText(/Coverage: 120%/i)).toBeInTheDocument();
+  });
+});
+```
+
+**Test Coverage Target:**
+- ✅ 80%+ for `/logic` folder (pure functions)
+- ✅ 50%+ for `/components` (UI components)
+- ✅ Focus on critical paths, not 100% coverage
+
+---
+
+## Coding Standards
+
+### Critical Fullstack Rules
+
+- **Type Safety First:** All functions must have explicit TypeScript types (no `any`). Use strict mode in `tsconfig.json`.
+
+- **Pure Functions for Logic:** All business logic (IOI, break adjustment, coverage calculation) must be pure functions with no side effects. This enables testability and portability.
+
+- **Component Composition:** Break large components into smaller, reusable pieces. Max 200 lines per component file.
+
+- **State Immutability:** Never mutate state directly. Use Zustand's Immer middleware for "mutating" syntax that maintains immutability.
+
+- **Error Boundaries:** Wrap all major sections in React Error Boundaries. Never let errors crash the entire app.
+
+- **Memoization for Performance:** Use `React.memo()`, `useMemo()`, and `useCallback()` for expensive operations or frequent re-renders.
+
+- **Accessibility Required:** All interactive elements must be keyboard accessible. Use semantic HTML and ARIA labels where needed.
+
+- **Data Validation:** All JSON data must be validated with Zod schemas on load. Display user-friendly error messages for validation failures.
+
+---
+
+### Naming Conventions
+
+| Element | Convention | Example |
+|---------|-----------|---------|
+| **Components** | PascalCase | `CvDHeatmap.tsx` |
+| **Hooks** | camelCase with 'use' prefix | `useAgentFilter.ts` |
+| **Types/Interfaces** | PascalCase | `Agent`, `IOIResult` |
+| **Functions** | camelCase | `calculateIOI()`, `proposeBreakAdjustments()` |
+| **Constants** | SCREAMING_SNAKE_CASE | `MAX_IOI_SCORE = 100` |
+| **Files (logic)** | camelCase | `ioiCalculator.ts` |
+| **CSS Classes** | Tailwind utilities only | `className="flex gap-4"` |
+
+---
+
+## Error Handling Strategy
+
+### Error Flow
+
+```mermaid
+sequenceDiagram
+    participant Component
+    participant ErrorBoundary
+    participant ErrorLogger
+    participant User
+
+    Component->>Component: Runtime error occurs
+    Component->>ErrorBoundary: Throw error
+    ErrorBoundary->>ErrorLogger: Log error details
+    ErrorLogger->>ErrorLogger: console.error(error, stack)
+
+    alt Recoverable Error
+        ErrorBoundary->>User: Show error UI with retry
+        User->>ErrorBoundary: Click retry
+        ErrorBoundary->>Component: Reset error state
+    else Critical Error
+        ErrorBoundary->>User: Show "Reset Demo" button
+        User->>ErrorBoundary: Reset demo
+        ErrorBoundary->>Component: Reload initial state
+    end
+```
+
+### Error Response Format
+
+```typescript
+// Standard error interface
+interface AppError {
+  code: string;
+  message: string;
+  details?: Record<string, any>;
+  timestamp: string;
+  recoverable: boolean;
+}
+```
+
+### Frontend Error Handling
+
+```typescript
+// src/components/Layout/ErrorBoundary.tsx
+export class ErrorBoundary extends React.Component<Props, State> {
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('ErrorBoundary caught error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="error-screen">
+          <h1>Something Went Wrong</h1>
+          <button onClick={this.handleReset}>Reset Demo</button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+```
+
+---
+
+## Monitoring and Observability
+
+### Monitoring Stack
+
+- **Frontend Monitoring:** Vercel Analytics (Free Tier)
+- **Backend Monitoring:** N/A (no backend)
+- **Error Tracking:** Browser console + manual observation (no Sentry for demo scope)
+- **Performance Monitoring:** Chrome DevTools + Lighthouse
+
+### Key Metrics
+
+**Frontend Metrics:**
+- **Core Web Vitals:**
+  - LCP (Largest Contentful Paint): < 2.5s
+  - FID (First Input Delay): < 100ms
+  - CLS (Cumulative Layout Shift): < 0.1
+- **JavaScript errors:** Tracked via console.error
+- **Page load time:** < 2s (FR20)
+- **Interaction latency:** < 200ms (NFR2)
+
+**Demo-Specific Metrics:**
+- IOI calculation time (target: < 500ms)
+- CvD recalculation time (target: < 100ms)
+- Demo reset time (target: < 1s)
+
+---
+
+## Checklist Results Report
+
+_Checklist execution pending. This section will be populated after running the architect-checklist._
+
+---
+
+**Document Complete**
+
+This architecture document provides comprehensive guidance for AI-driven development of the Intelligent WFM Scheduling Demo. All technology choices, patterns, and structures are explicitly defined to enable consistent implementation across the entire stack.

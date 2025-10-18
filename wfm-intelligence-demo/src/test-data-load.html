@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Data Load Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-top: 0;
+    }
+    button {
+      background: #3B82F6;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    button:hover {
+      background: #2563EB;
+    }
+    button:disabled {
+      background: #9CA3AF;
+      cursor: not-allowed;
+    }
+    #results {
+      background: #1F2937;
+      color: #F3F4F6;
+      padding: 20px;
+      border-radius: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    .success {
+      color: #10B981;
+    }
+    .error {
+      color: #EF4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Demo Data Load Performance Test</h1>
+    <p>This test loads all demo data files in parallel and measures performance against the FR20 requirement (&lt;2 seconds).</p>
+
+    <button id="testBtn" onclick="runTest()">Run Load Test</button>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    async function runTest() {
+      const resultsDiv = document.getElementById('results');
+      const testBtn = document.getElementById('testBtn');
+
+      resultsDiv.textContent = 'Loading demo data...';
+      testBtn.disabled = true;
+
+      try {
+        const startTime = performance.now();
+
+        // Load all files in parallel
+        const [agentsRes, schedulesRes, cvdForecastRes, complianceRulesRes] = await Promise.all([
+          fetch('/demo-data/agents.json'),
+          fetch('/demo-data/schedules.json'),
+          fetch('/demo-data/cvd-forecast.json'),
+          fetch('/demo-data/compliance-rules.json'),
+        ]);
+
+        // Parse JSON in parallel
+        const [agents, schedules, cvdForecast, complianceRules] = await Promise.all([
+          agentsRes.json(),
+          schedulesRes.json(),
+          cvdForecastRes.json(),
+          complianceRulesRes.json(),
+        ]);
+
+        const endTime = performance.now();
+        const totalDuration = endTime - startTime;
+
+        // Calculate file sizes
+        const getContentLength = (res) => {
+          const length = res.headers.get('content-length');
+          return length ? parseInt(length, 10) : 0;
+        };
+
+        const fileSizes = {
+          agents: getContentLength(agentsRes),
+          schedules: getContentLength(schedulesRes),
+          cvdForecast: getContentLength(cvdForecastRes),
+          complianceRules: getContentLength(complianceRulesRes),
+        };
+
+        const totalSize = Object.values(fileSizes).reduce((a, b) => a + b, 0);
+
+        // Format bytes
+        const formatBytes = (bytes) => {
+          if (bytes === 0) return '0 B';
+          const k = 1024;
+          const sizes = ['B', 'KB', 'MB'];
+          const i = Math.floor(Math.log(bytes) / Math.log(k));
+          return `${(bytes / Math.pow(k, i)).toFixed(1)} ${sizes[i]}`;
+        };
+
+        // Display results
+        let output = '';
+        output += '========== DEMO DATA LOAD PERFORMANCE ==========\n\n';
+        output += `⏱️  Total Load Time: ${totalDuration.toFixed(2)}ms\n\n`;
+        output += `📦 File Sizes:\n`;
+        output += `   agents.json:           ${formatBytes(fileSizes.agents)}\n`;
+        output += `   schedules.json:        ${formatBytes(fileSizes.schedules)}\n`;
+        output += `   cvd-forecast.json:     ${formatBytes(fileSizes.cvdForecast)}\n`;
+        output += `   compliance-rules.json: ${formatBytes(fileSizes.complianceRules)}\n`;
+        output += `   TOTAL:                 ${formatBytes(totalSize)}\n\n`;
+        output += `📊 Item Counts:\n`;
+        output += `   Agents:          ${agents.length}\n`;
+        output += `   Schedules:       ${schedules.length}\n`;
+        output += `   CvD Intervals:   ${cvdForecast.length}\n`;
+        output += `   Compliance Rules: ${complianceRules.length}\n\n`;
+        output += `✅ Load Target: < 2000ms (FR20)\n\n`;
+
+        if (totalDuration < 2000) {
+          output += `✅ PASSED: Load completed in ${totalDuration.toFixed(2)}ms\n`;
+          resultsDiv.className = 'success';
+        } else {
+          output += `❌ FAILED: Load took ${totalDuration.toFixed(2)}ms (exceeds 2000ms target)\n`;
+          resultsDiv.className = 'error';
+        }
+
+        output += '\n================================================\n';
+
+        resultsDiv.textContent = output;
+      } catch (error) {
+        resultsDiv.textContent = `❌ Error loading data: ${error.message}`;
+        resultsDiv.className = 'error';
+      } finally {
+        testBtn.disabled = false;
+      }
+    }
+
+    // Auto-run test on page load
+    window.addEventListener('load', () => {
+      setTimeout(runTest, 500);
+    });
+  </script>
+</body>
+</html>

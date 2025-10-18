@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Data Load Test - Production Simulation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #333;
+      margin-top: 0;
+      font-size: 28px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    button:disabled {
+      background: #9CA3AF;
+      cursor: not-allowed;
+      transform: none;
+    }
+    #results {
+      background: #1e293b;
+      color: #f1f5f9;
+      padding: 24px;
+      border-radius: 8px;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      border: 1px solid #334155;
+    }
+    .metric {
+      display: inline-block;
+      background: #334155;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin: 2px 0;
+      font-weight: 600;
+    }
+    .success {
+      color: #10b981;
+    }
+    .warning {
+      color: #f59e0b;
+    }
+    .error {
+      color: #ef4444;
+    }
+    .info {
+      color: #3b82f6;
+    }
+    .loading {
+      display: inline-block;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .stat-card {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Demo Data Load Performance Test</h1>
+    <p class="subtitle">
+      Testing parallel load of all demo data files against FR20 requirement (&lt; 2 seconds)
+      <br>This simulates production loading from Vercel CDN
+    </p>
+
+    <div class="stats-grid" id="statsGrid" style="display: none;">
+      <div class="stat-card">
+        <div class="stat-label">Load Time</div>
+        <div class="stat-value" id="loadTime">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Size</div>
+        <div class="stat-value" id="totalSize">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Items</div>
+        <div class="stat-value" id="totalItems">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Status</div>
+        <div class="stat-value" id="status">--</div>
+      </div>
+    </div>
+
+    <button id="testBtn" onclick="runTest()">▶ Run Performance Test</button>
+    <button onclick="clearResults()" style="background: #64748b; margin-left: 10px;">Clear Results</button>
+
+    <div id="results"></div>
+  </div>
+
+  <script>
+    function clearResults() {
+      document.getElementById('results').textContent = '';
+      document.getElementById('statsGrid').style.display = 'none';
+    }
+
+    async function runTest() {
+      const resultsDiv = document.getElementById('results');
+      const testBtn = document.getElementById('testBtn');
+      const statsGrid = document.getElementById('statsGrid');
+
+      resultsDiv.innerHTML = '<span class="loading">⏳ Loading demo data files...</span>';
+      testBtn.disabled = true;
+      statsGrid.style.display = 'none';
+
+      try {
+        // Clear browser cache for accurate test (optional)
+        console.clear();
+        console.log('%c=== DEMO DATA LOAD PERFORMANCE TEST ===', 'color: #667eea; font-size: 16px; font-weight: bold;');
+
+        const startTime = performance.now();
+        const startMark = 'load-start';
+        const endMark = 'load-end';
+
+        performance.mark(startMark);
+
+        // Load all files in parallel (simulates production)
+        console.log('%c[1/3] Initiating parallel fetch requests...', 'color: #3b82f6');
+        const fetchPromises = [
+          fetch('/demo-data/agents.json'),
+          fetch('/demo-data/schedules.json'),
+          fetch('/demo-data/cvd-forecast.json'),
+          fetch('/demo-data/compliance-rules.json'),
+        ];
+
+        const responses = await Promise.all(fetchPromises);
+        console.log('%c[2/3] All fetch requests completed', 'color: #10b981');
+
+        // Parse JSON in parallel
+        console.log('%c[3/3] Parsing JSON data...', 'color: #3b82f6');
+        const [agents, schedules, cvdForecast, complianceRules] = await Promise.all([
+          responses[0].json(),
+          responses[1].json(),
+          responses[2].json(),
+          responses[3].json(),
+        ]);
+
+        performance.mark(endMark);
+        performance.measure('total-load-time', startMark, endMark);
+
+        const endTime = performance.now();
+        const totalDuration = endTime - startTime;
+
+        // Get performance entry
+        const perfEntry = performance.getEntriesByName('total-load-time')[0];
+
+        // Calculate file sizes
+        const getContentLength = (res) => {
+          const length = res.headers.get('content-length');
+          return length ? parseInt(length, 10) : 0;
+        };
+
+        const fileSizes = {
+          agents: getContentLength(responses[0]),
+          schedules: getContentLength(responses[1]),
+          cvdForecast: getContentLength(responses[2]),
+          complianceRules: getContentLength(responses[3]),
+        };
+
+        const totalSize = Object.values(fileSizes).reduce((a, b) => a + b, 0);
+        const totalItems = agents.length + schedules.length + cvdForecast.length + complianceRules.length;
+
+        // Format bytes
+        const formatBytes = (bytes) => {
+          if (bytes === 0) return '0 B';
+          const k = 1024;
+          const sizes = ['B', 'KB', 'MB'];
+          const i = Math.floor(Math.log(bytes) / Math.log(k));
+          return `${(bytes / Math.pow(k, i)).toFixed(1)} ${sizes[i]}`;
+        };
+
+        // Update stats cards
+        statsGrid.style.display = 'grid';
+        document.getElementById('loadTime').textContent = totalDuration.toFixed(2) + 'ms';
+        document.getElementById('totalSize').textContent = formatBytes(totalSize);
+        document.getElementById('totalItems').textContent = totalItems.toLocaleString();
+
+        const passed = totalDuration < 2000;
+        document.getElementById('status').innerHTML = passed
+          ? '<span class="success">✓ PASSED</span>'
+          : '<span class="error">✗ FAILED</span>';
+
+        // Console output
+        console.log('%c✓ All data loaded successfully', 'color: #10b981; font-weight: bold');
+        console.log(`%cTotal Duration: ${totalDuration.toFixed(2)}ms`, 'color: #f59e0b; font-size: 14px; font-weight: bold');
+
+        // Display results
+        let output = '';
+        output += '╔══════════════════════════════════════════════════════════╗\n';
+        output += '║          DEMO DATA LOAD PERFORMANCE REPORT              ║\n';
+        output += '╚══════════════════════════════════════════════════════════╝\n\n';
+
+        output += '⏱️  TIMING METRICS\n';
+        output += '─────────────────────────────────────────────────────────\n';
+        output += `   Total Load Time:        ${totalDuration.toFixed(2)}ms\n`;
+        output += `   Performance Entry:      ${perfEntry.duration.toFixed(2)}ms\n`;
+        output += `   Target (FR20):          < 2000ms\n`;
+        output += `   Margin:                 ${(2000 - totalDuration).toFixed(2)}ms ${passed ? '✓' : '✗'}\n\n`;
+
+        output += '📦 FILE SIZES\n';
+        output += '─────────────────────────────────────────────────────────\n';
+        output += `   agents.json             ${formatBytes(fileSizes.agents).padEnd(12)} (${agents.length} items)\n`;
+        output += `   schedules.json          ${formatBytes(fileSizes.schedules).padEnd(12)} (${schedules.length} items)\n`;
+        output += `   cvd-forecast.json       ${formatBytes(fileSizes.cvdForecast).padEnd(12)} (${cvdForecast.length} items)\n`;
+        output += `   compliance-rules.json   ${formatBytes(fileSizes.complianceRules).padEnd(12)} (${complianceRules.length} items)\n`;
+        output += `   ───────────────────────────────────────────────\n`;
+        output += `   TOTAL                   ${formatBytes(totalSize).padEnd(12)} (${totalItems} items)\n\n`;
+
+        output += '📊 NETWORK PERFORMANCE\n';
+        output += '─────────────────────────────────────────────────────────\n';
+
+        // Get navigation timing if available
+        if (performance.getEntriesByType) {
+          const navTiming = performance.getEntriesByType('navigation')[0];
+          if (navTiming) {
+            output += `   DNS Lookup:             ${navTiming.domainLookupEnd - navTiming.domainLookupStart}ms\n`;
+            output += `   TCP Connection:         ${navTiming.connectEnd - navTiming.connectStart}ms\n`;
+            output += `   Server Response:        ${navTiming.responseStart - navTiming.requestStart}ms\n`;
+          }
+        }
+
+        const throughput = (totalSize / 1024 / (totalDuration / 1000)).toFixed(2);
+        output += `   Throughput:             ${throughput} KB/s\n\n`;
+
+        output += '✅ VALIDATION\n';
+        output += '─────────────────────────────────────────────────────────\n';
+        output += `   Agents Count:           ${agents.length === 75 ? '✓' : '✗'} ${agents.length}/75\n`;
+        output += `   Schedules Count:        ${schedules.length > 0 ? '✓' : '✗'} ${schedules.length}\n`;
+        output += `   CvD Intervals:          ${cvdForecast.length === 672 ? '✓' : '✗'} ${cvdForecast.length}/672\n`;
+        output += `   Compliance Rules:       ${complianceRules.length === 4 ? '✓' : '✗'} ${complianceRules.length}/4\n`;
+        output += `   All Data Valid:         ${agents.length && schedules.length && cvdForecast.length && complianceRules.length ? '✓ YES' : '✗ NO'}\n\n`;
+
+        output += '🎯 FINAL RESULT\n';
+        output += '─────────────────────────────────────────────────────────\n';
+
+        if (passed) {
+          output += `   ✅ PASSED: Load completed in ${totalDuration.toFixed(2)}ms\n`;
+          output += `   Performance is ${((2000 / totalDuration).toFixed(1))}x faster than target!\n`;
+        } else {
+          output += `   ❌ FAILED: Load took ${totalDuration.toFixed(2)}ms\n`;
+          output += `   Exceeds 2000ms target by ${(totalDuration - 2000).toFixed(2)}ms\n`;
+        }
+
+        output += '\n─────────────────────────────────────────────────────────\n';
+        output += '💡 TIP: Open DevTools (F12) → Network tab to see detailed\n';
+        output += '   waterfall chart of file loading performance.\n';
+        output += '═════════════════════════════════════════════════════════\n';
+
+        resultsDiv.textContent = output;
+
+        // Log performance entries to console
+        console.log('%c📊 Performance Entries:', 'color: #3b82f6; font-weight: bold');
+        console.table({
+          'Total Load': { Duration: `${totalDuration.toFixed(2)}ms`, Status: passed ? '✓ PASS' : '✗ FAIL' },
+          'agents.json': { Size: formatBytes(fileSizes.agents), Items: agents.length },
+          'schedules.json': { Size: formatBytes(fileSizes.schedules), Items: schedules.length },
+          'cvd-forecast.json': { Size: formatBytes(fileSizes.cvdForecast), Items: cvdForecast.length },
+          'compliance-rules.json': { Size: formatBytes(fileSizes.complianceRules), Items: complianceRules.length },
+        });
+
+      } catch (error) {
+        resultsDiv.innerHTML = `<span class="error">❌ Error loading data:</span>\n\n${error.message}\n\nStack:\n${error.stack}`;
+        console.error('Load test failed:', error);
+      } finally {
+        testBtn.disabled = false;
+      }
+    }
+
+    // Auto-run test on page load
+    window.addEventListener('load', () => {
+      console.log('%c🚀 Demo Data Load Test Page Ready', 'color: #667eea; font-size: 14px; font-weight: bold');
+      console.log('%cℹ️  This test will auto-run in 1 second...', 'color: #64748b');
+      setTimeout(runTest, 1000);
+    });
+  </script>
+</body>
+</html>
