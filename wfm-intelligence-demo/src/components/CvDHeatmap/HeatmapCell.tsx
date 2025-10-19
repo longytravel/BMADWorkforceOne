@@ -43,7 +43,7 @@ export const HeatmapCell = React.memo(({ dataPoint, onClick }: HeatmapCellProps)
 
   const cellContent = (
     <div
-      className="w-full h-2 cursor-pointer transition-opacity hover:opacity-80"
+      className="w-full h-2 cursor-pointer transition-all duration-300 ease-in-out hover:opacity-80"
       style={{ backgroundColor }}
       data-testid="heatmap-cell"
       data-risk={dataPoint.riskLevel}

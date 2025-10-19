@@ -5,6 +5,13 @@ import { HeatmapCell } from './HeatmapCell';
 import { useAppStore } from '@/stores/appStore';
 import type { CvDDataPoint } from '@/types';
 import { RiskLevel } from '@/types';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import React from 'react';
+
+// Helper to wrap components with TooltipProvider for testing
+const renderWithTooltip = (component: React.ReactElement) => {
+  return render(<TooltipProvider>{component}</TooltipProvider>);
+};
 
 // Mock Zustand store
 vi.mock('@/stores/appStore', () => ({
@@ -176,7 +183,7 @@ describe('HeatmapCell', () => {
       },
     };
 
-    const { container } = render(<HeatmapCell dataPoint={dataPoint} />);
+    const { container } = renderWithTooltip(<HeatmapCell dataPoint={dataPoint} />);
     const cell = container.querySelector('[data-testid="heatmap-cell"]');
 
     expect(cell).toBeInTheDocument();
@@ -199,7 +206,7 @@ describe('HeatmapCell', () => {
       },
     };
 
-    const { container } = render(<HeatmapCell dataPoint={dataPoint} />);
+    const { container } = renderWithTooltip(<HeatmapCell dataPoint={dataPoint} />);
     const cell = container.querySelector('[data-testid="heatmap-cell"]');
 
     expect(cell).toBeInTheDocument();
@@ -222,7 +229,7 @@ describe('HeatmapCell', () => {
       },
     };
 
-    const { container } = render(<HeatmapCell dataPoint={dataPoint} />);
+    const { container } = renderWithTooltip(<HeatmapCell dataPoint={dataPoint} />);
     const cell = container.querySelector('[data-testid="heatmap-cell"]');
 
     expect(cell).toBeInTheDocument();
@@ -231,7 +238,7 @@ describe('HeatmapCell', () => {
   });
 
   it('should render empty state for null dataPoint', () => {
-    const { container } = render(<HeatmapCell dataPoint={null} />);
+    const { container } = renderWithTooltip(<HeatmapCell dataPoint={null} />);
     const emptyCell = container.querySelector('[data-testid="heatmap-cell-empty"]');
 
     expect(emptyCell).toBeInTheDocument();
@@ -253,7 +260,7 @@ describe('HeatmapCell', () => {
       },
     };
 
-    const { container } = render(<HeatmapCell dataPoint={dataPoint} />);
+    const { container } = renderWithTooltip(<HeatmapCell dataPoint={dataPoint} />);
     const cell = container.querySelector('[data-testid="heatmap-cell"]');
 
     expect(cell).toHaveAttribute('data-risk', 'safe');
@@ -276,7 +283,7 @@ describe('HeatmapCell', () => {
       },
     };
 
-    const { container } = render(<HeatmapCell dataPoint={dataPoint} />);
+    const { container } = renderWithTooltip(<HeatmapCell dataPoint={dataPoint} />);
     const cell = container.querySelector('[data-testid="heatmap-cell"]');
 
     expect(cell).toHaveAttribute('aria-label', 'Monday 14:00: safe risk, 120% coverage');
@@ -299,7 +306,7 @@ describe('HeatmapCell', () => {
       },
     };
 
-    const { container } = render(<HeatmapCell dataPoint={dataPoint} onClick={onClick} />);
+    const { container } = renderWithTooltip(<HeatmapCell dataPoint={dataPoint} onClick={onClick} />);
     const cell = container.querySelector('[data-testid="heatmap-cell"]');
 
     cell?.dispatchEvent(new MouseEvent('click', { bubbles: true }));

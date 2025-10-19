@@ -3,6 +3,7 @@ import { useAppStore } from '@/stores/appStore';
 import type { CvDDataPoint } from '@/types';
 import { HeatmapCell } from './HeatmapCell';
 import { HeatmapDetailModal } from './HeatmapDetailModal';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 /**
  * Day names for column headers
@@ -121,7 +122,7 @@ export function CvDHeatmap({
   };
 
   return (
-    <>
+    <TooltipProvider delayDuration={200}>
       <div className="w-full h-full overflow-auto bg-white rounded-lg shadow-sm border border-gray-200">
         {/* Grid container with 8 columns (1 time column + 7 day columns) */}
         <div className="grid grid-cols-8 gap-0 min-w-max">
@@ -169,13 +170,13 @@ export function CvDHeatmap({
       </div>
     </div>
 
-    {/* Detail Modal */}
-    <HeatmapDetailModal
-      dataPoint={selectedDataPoint}
-      isOpen={selectedDataPoint !== null}
-      onClose={() => setSelectedDataPoint(null)}
-    />
-  </>
+      {/* Detail Modal */}
+      <HeatmapDetailModal
+        dataPoint={selectedDataPoint}
+        isOpen={selectedDataPoint !== null}
+        onClose={() => setSelectedDataPoint(null)}
+      />
+    </TooltipProvider>
   );
 }
 

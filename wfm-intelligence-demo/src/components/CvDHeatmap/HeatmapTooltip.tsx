@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import type { CvDDataPoint, RiskLevel } from '@/types';
@@ -58,27 +57,25 @@ export const HeatmapTooltip = React.memo(({ dataPoint, children }: HeatmapToolti
   const borderColor = BORDER_COLORS[dataPoint.riskLevel];
 
   return (
-    <TooltipProvider delayDuration={200}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          {children}
-        </TooltipTrigger>
-        <TooltipContent
-          className={`border-2 ${borderColor} bg-white shadow-lg`}
-          role="tooltip"
-          aria-label={`Coverage ${dataPoint.coveragePercent}%, ${dataPoint.scheduledAgents} agents, ${dataPoint.forecastedCalls} calls`}
-        >
-          <div className="text-sm space-y-1">
-            <p className="font-semibold text-gray-900">
-              {dataPoint.dayOfWeek} {timeRange}
-            </p>
-            <p className="text-gray-700">Coverage: {dataPoint.coveragePercent}%</p>
-            <p className="text-gray-700">Agents: {dataPoint.scheduledAgents}</p>
-            <p className="text-gray-700">Demand: {dataPoint.forecastedCalls} calls</p>
-          </div>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        {children}
+      </TooltipTrigger>
+      <TooltipContent
+        className={`border-2 ${borderColor} bg-white shadow-lg`}
+        role="tooltip"
+        aria-label={`Coverage ${dataPoint.coveragePercent}%, ${dataPoint.scheduledAgents} agents, ${dataPoint.forecastedCalls} calls`}
+      >
+        <div className="text-sm space-y-1">
+          <p className="font-semibold text-gray-900">
+            {dataPoint.dayOfWeek} {timeRange}
+          </p>
+          <p className="text-gray-700">Coverage: {dataPoint.coveragePercent}%</p>
+          <p className="text-gray-700">Agents: {dataPoint.scheduledAgents}</p>
+          <p className="text-gray-700">Demand: {dataPoint.forecastedCalls} calls</p>
+        </div>
+      </TooltipContent>
+    </Tooltip>
   );
 });
 

@@ -3,6 +3,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { HeatmapTooltip } from './HeatmapTooltip';
 import type { CvDDataPoint } from '@/types';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import React from 'react';
+
+// Helper to wrap components with TooltipProvider for testing
+const renderWithTooltip = (component: React.ReactElement) => {
+  return render(<TooltipProvider>{component}</TooltipProvider>);
+};
 
 describe('HeatmapTooltip', () => {
   const mockDataPoint: CvDDataPoint = {
@@ -22,7 +29,7 @@ describe('HeatmapTooltip', () => {
   it('should display coverage percentage on hover', async () => {
     const user = userEvent.setup();
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={mockDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -39,7 +46,7 @@ describe('HeatmapTooltip', () => {
   it('should display agents and demand on hover', async () => {
     const user = userEvent.setup();
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={mockDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -57,7 +64,7 @@ describe('HeatmapTooltip', () => {
   it('should display time interval with correct format', async () => {
     const user = userEvent.setup();
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={mockDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -102,9 +109,11 @@ describe('HeatmapTooltip', () => {
     await user.unhover(trigger);
 
     rerender(
-      <HeatmapTooltip dataPoint={dataPoint2}>
-        <button data-testid="trigger">Hover Me</button>
-      </HeatmapTooltip>
+      <TooltipProvider>
+        <HeatmapTooltip dataPoint={dataPoint2}>
+          <button data-testid="trigger">Hover Me</button>
+        </HeatmapTooltip>
+      </TooltipProvider>
     );
 
     await user.hover(trigger);
@@ -121,7 +130,7 @@ describe('HeatmapTooltip', () => {
   it.skip('should disappear on mouse leave', async () => {
     const user = userEvent.setup();
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={mockDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -151,7 +160,7 @@ describe('HeatmapTooltip', () => {
   it('should display correct border color for safe risk level', async () => {
     const user = userEvent.setup();
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={mockDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -177,7 +186,7 @@ describe('HeatmapTooltip', () => {
       riskLevel: 'caution',
     };
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={cautionDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -205,7 +214,7 @@ describe('HeatmapTooltip', () => {
       riskLevel: 'risk',
     };
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={riskDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -226,7 +235,7 @@ describe('HeatmapTooltip', () => {
   it('should have accessible ARIA attributes', async () => {
     const user = userEvent.setup();
 
-    render(
+    renderWithTooltip(
       <HeatmapTooltip dataPoint={mockDataPoint}>
         <button data-testid="trigger">Hover Me</button>
       </HeatmapTooltip>
@@ -248,7 +257,7 @@ describe('HeatmapTooltip', () => {
   });
 
   it('should render children correctly', () => {
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithTooltip(
       <HeatmapTooltip dataPoint={mockDataPoint}>
         <div data-testid="child-element">Test Child</div>
       </HeatmapTooltip>
