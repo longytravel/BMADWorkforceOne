@@ -59,14 +59,17 @@ export interface Activity {
  * Represents a 15-minute interval's coverage status
  */
 export interface CvDDataPoint {
-  intervalStart: string; // ISO 8601 format
+  intervalStart: string; // ISO 8601 format (e.g., "2025-10-20T14:00:00Z")
   dayOfWeek: string; // Monday, Tuesday, etc.
-  timeSlot: string; // HH:MM format (e.g., "09:00")
-  coverage: number; // Number of agents available
-  demand: number; // Required number of agents
-  surplus: number; // coverage - demand
-  riskLevel: RiskLevel;
-  utilizationPercent: number; // (coverage / demand) * 100
+  timeSlot: string; // HH:MM format (e.g., "14:00")
+  forecastedCalls: number; // Demand forecast for this interval
+  scheduledAgents: number; // Number of agents scheduled (computed real-time)
+  coveragePercent: number; // (scheduledAgents / forecastedCalls) * 100
+  riskLevel: RiskLevel; // 'safe' >105%, 'caution' 90-105%, 'risk' <90%
+  metadata: {
+    skillsAvailable: string[]; // Skills of scheduled agents in this interval
+    peakHour: boolean; // Flag for 10am-12pm, 2pm-4pm peaks
+  };
 }
 
 /**
