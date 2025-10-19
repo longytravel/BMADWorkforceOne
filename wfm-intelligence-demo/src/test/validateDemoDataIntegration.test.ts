@@ -5,7 +5,7 @@ import { CoverageCalculator } from '../logic/coverageCalculator';
 import agentsData from '../../public/demo-data/agents.json';
 import schedulesData from '../../public/demo-data/schedules.json';
 import cvdForecastData from '../../public/demo-data/cvd-forecast.json';
-import type { Agent, Activity } from '../types';
+import type { Agent, Activity, CvDDataPoint } from '../types';
 import { CvDDataArraySchema } from '../types/schemas';
 
 describe('Demo Data Integration', () => {
@@ -40,7 +40,7 @@ describe('Demo Data Integration', () => {
       forecastedCalls: point.forecastedCalls,
     }));
 
-    const result = calculator.recalculateAll(agents, activities, forecastData);
+    const result: CvDDataPoint[] = calculator.recalculateAll(agents, activities, forecastData);
 
     expect(result).toHaveLength(672);
   });
