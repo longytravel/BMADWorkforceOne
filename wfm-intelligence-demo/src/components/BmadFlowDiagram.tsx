@@ -45,23 +45,8 @@ export function BmadFlowDiagram({ onPhaseClick }: BmadFlowDiagramProps) {
       mermaid.render('bmad-flowchart', getMermaidDefinition()).then(({ svg }) => {
         if (mermaidRef.current) {
           mermaidRef.current.innerHTML = svg;
-
-          // Add click handlers to nodes
-          const nodes = mermaidRef.current.querySelectorAll('.node');
-          nodes.forEach((node) => {
-            const nodeElement = node as HTMLElement;
-            const nodeId = nodeElement.id;
-
-            // Extract phase number from node ID (e.g., "flowchart-phase-1-XX" -> "phase-1")
-            const match = nodeId.match(/flowchart-(phase-\d+)/);
-            if (match) {
-              const phaseId = match[1];
-              nodeElement.style.cursor = 'pointer';
-              nodeElement.addEventListener('click', () => {
-                onPhaseClick(phaseId);
-              });
-            }
-          });
+          // Note: Phase clicking is now handled via the "All Phases" grid below the diagram
+          // The workflow diagram shows the complete process flow with decisions and loops
         }
       });
     }
@@ -69,65 +54,82 @@ export function BmadFlowDiagram({ onPhaseClick }: BmadFlowDiagramProps) {
 
   return (
     <div className="w-full bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-8 shadow-inner">
-      <div ref={mermaidRef} className="mermaid-diagram" />
+      <div
+        ref={mermaidRef}
+        className="mermaid-diagram flex justify-center items-start overflow-x-auto"
+        style={{ minHeight: '600px' }}
+      />
     </div>
   );
 }
 
 function getMermaidDefinition(): string {
   return `
-flowchart TB
-    start([Start BMad Method])
-
-    %% Planning Phase
-    phase-1[I. Project Definition<br/>📊 Mary - Analyst<br/>Brainstorming & Research]
-    phase-2[II. Requirements<br/>📋 John - PM<br/>PRD Creation]
-    phase-3[III. UI/UX Design<br/>🎨 Sally - UX Expert<br/>Design System]
-    phase-4[IV. Architecture<br/>🏗️ Winston - Architect<br/>Tech Stack]
-    phase-5[V. Early QA/Risk<br/>🔍 Quinn - QA<br/>Test Strategy]
-    phase-6[VI. Validation Gate<br/>✅ Sarah - PO<br/>Approval]
-
-    %% Transition
-    phase-7[VII. Transition & Setup<br/>📦 Sarah - PO<br/>Document Sharding]
-
-    %% Execution Phase
-    phase-8[VIII. Story Drafting<br/>✍️ Bob - SM<br/>User Stories]
-    phase-9[IX. Pre-Code QA<br/>🔬 Quinn - QA<br/>Risk Assessment]
-    phase-10[X. Implementation<br/>💻 James - Dev<br/>Code & Tests]
-    phase-11[XI. Review Gate<br/>🎯 Quinn - QA<br/>Quality Check]
-    phase-12[XII. Completion<br/>🎉 James - Dev<br/>Done & Repeat]
-
-    done([Story Complete])
-
-    %% Flow connections
-    start --> phase-1
-    phase-1 --> phase-2
-    phase-2 --> phase-3
-    phase-3 --> phase-4
-    phase-4 --> phase-5
-    phase-5 --> phase-6
-    phase-6 --> phase-7
-    phase-7 --> phase-8
-    phase-8 --> phase-9
-    phase-9 --> phase-10
-    phase-10 --> phase-11
-    phase-11 -.Pass.-> phase-12
-    phase-11 -.Concerns/Fail.-> phase-10
-    phase-12 -.Next Story.-> phase-8
-    phase-12 --> done
+graph TD
+    A["Start: Project Idea"] --> B{"Optional: Analyst Research"}
+    B -->|Yes| C["Analyst: Brainstorming"]
+    B -->|No| G{"Project Brief Available?"}
+    C --> C2["Analyst: Market Research"]
+    C2 --> C3["Analyst: Competitor Analysis"]
+    C3 --> D["Analyst: Create Project Brief"]
+    D --> G
+    G -->|Yes| E["PM: Create PRD from Brief<br/>Fast Track"]
+    G -->|No| E2["PM: Interactive PRD Creation<br/>More Questions"]
+    E --> F["PRD Created with FRs, NFRs,<br/>Epics & Stories"]
+    E2 --> F
+    F --> F2{"UX Required?"}
+    F2 -->|Yes| F3["UX Expert: Create Front End Spec"]
+    F2 -->|No| H["Architect: Create Architecture<br/>from PRD"]
+    F3 --> F4["UX Expert: Generate UI Prompt<br/>for Lovable/V0 (Optional)"]
+    F4 --> H2["Architect: Create Architecture<br/>from PRD + UX Spec"]
+    H --> Q{"Early Test Strategy?<br/>(Optional)"}
+    H2 --> Q
+    Q -->|Yes| R["QA: Early Test Architecture Input<br/>on High-Risk Areas"]
+    Q -->|No| I["PO: Run Master Checklist"]
+    R --> I
+    I --> J{"Documents Aligned?"}
+    J -->|Yes| K["Planning Complete"]
+    J -->|No| L["PO: Update Epics & Stories"]
+    L --> M["Update PRD/Architecture<br/>as needed"]
+    M --> I
+    K --> N["📁 Switch to IDE<br/>(If in Web Agent Platform)"]
+    N --> O["PO: Shard Documents"]
+    O --> P["Ready for SM/Dev Cycle"]
+    P --> P1["SM: Draft Next Story"]
+    P1 --> P2["QA: Pre-Code Review"]
+    P2 --> P3["Dev: Implement Story"]
+    P3 --> P4{"QA Review Gate"}
+    P4 -->|Pass| P5["Story Complete"]
+    P4 -->|Fail/Concerns| P3
+    P5 --> P6{"More Stories?"}
+    P6 -->|Yes| P1
+    P6 -->|No| END["Project Complete"]
 
     %% Styling
-    classDef planning fill:#3b82f6,stroke:#1e40af,stroke-width:3px,color:#fff
-    classDef execution fill:#0d9488,stroke:#0f766e,stroke-width:3px,color:#fff
-    classDef gate fill:#8b5cf6,stroke:#6d28d9,stroke-width:3px,color:#fff
-    classDef transition fill:#f59e0b,stroke:#d97706,stroke-width:3px,color:#fff
+    classDef start fill:#f5f5f5,color:#000,stroke:#333,stroke-width:2px
+    classDef decision fill:#e3f2fd,color:#000,stroke:#1976d2,stroke-width:2px
+    classDef analyst fill:#e8f5e9,color:#000,stroke:#388e3c,stroke-width:2px
+    classDef pm fill:#fff3e0,color:#000,stroke:#f57c00,stroke-width:2px
+    classDef ux fill:#e1f5fe,color:#000,stroke:#0288d1,stroke-width:2px
+    classDef architect fill:#f3e5f5,color:#000,stroke:#7b1fa2,stroke-width:2px
+    classDef qa fill:#ffd54f,color:#000,stroke:#f57f17,stroke-width:3px
+    classDef po fill:#f9ab00,color:#fff,stroke:#e65100,stroke-width:3px
+    classDef success fill:#34a853,color:#fff,stroke:#1e7e34,stroke-width:3px
+    classDef transition fill:#1a73e8,color:#fff,stroke:#0d47a1,stroke-width:3px
+    classDef dev fill:#9c27b0,color:#fff,stroke:#6a1b9a,stroke-width:2px
 
-    class phase-1,phase-2,phase-3,phase-4,phase-5 planning
-    class phase-6,phase-11 gate
-    class phase-7 transition
-    class phase-8,phase-9,phase-10,phase-12 execution
-
-    linkStyle default stroke:#64748b,stroke-width:2px
-    linkStyle 12,13,14 stroke:#dc2626,stroke-width:2px,stroke-dasharray:5
+    class A start
+    class B,F2,G,J,Q,P4,P6 decision
+    class C,C2,C3,D analyst
+    class E,E2,F pm
+    class F3,F4 ux
+    class H,H2 architect
+    class R,P2 qa
+    class I,L,O po
+    class K,P5,END success
+    class M pm
+    class N,P transition
+    class P1 dev
+    class P3 dev
   `;
 }

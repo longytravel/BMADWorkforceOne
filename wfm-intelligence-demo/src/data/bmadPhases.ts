@@ -264,14 +264,26 @@ export const BMAD_PHASES: BmadPhase[] = [
     outputs: ['Early Test Architecture Strategy', 'Risk Assessment Matrix', 'Test Scenarios'],
     artifacts: [
       {
-        name: 'QA Gate Definitions',
-        githubPath: 'docs/qa/gates',
-        description: 'Quality checkpoints and acceptance criteria',
+        name: 'Early Test Architecture Strategy',
+        githubPath: 'docs/qa/early-test-architecture.md',
+        description: 'Comprehensive test strategy and risk assessment for the project',
+        highlights: [
+          'Risk profiling and high-risk area identification',
+          'Test strategy by epic and story',
+          'NFR testing approach',
+          'Test automation strategy',
+          'Quality metrics and success criteria'
+        ]
+      },
+      {
+        name: 'QA Gate Example (Story 1.1)',
+        githubPath: 'docs/qa/gates/1.1-initialize-vite-project.yml',
+        description: 'Example quality gate definition in YAML format',
         highlights: [
           'Story-level quality gates',
-          'Epic-level quality gates',
-          'Release quality criteria',
-          'Risk assessment frameworks'
+          'Acceptance criteria validation',
+          'Risk assessment',
+          'Test coverage requirements'
         ]
       }
     ]
@@ -438,6 +450,102 @@ export const BMAD_PHASES: BmadPhase[] = [
           'Architecture documentation',
           'Contributing guidelines'
         ]
+      },
+      {
+        name: 'Story 2.1 - Coverage Calculator & CvD Data',
+        githubPath: 'docs/stories/2.1.coverage-calculator-cvd-data.md',
+        description: 'Core algorithm for calculating coverage vs demand metrics',
+        highlights: [
+          'Epic 2: CvD Heatmap & Coverage Intelligence',
+          'Pure function coverage calculator',
+          'Service level detection (Green/Yellow/Red)',
+          '15-minute interval calculations',
+          'Zod schema for CvD data validation'
+        ]
+      },
+      {
+        name: 'Story 2.2 - Heatmap Visual Component',
+        githubPath: 'docs/stories/2.2.heatmap-visual-component.md',
+        description: 'Build interactive 7-day x 96-interval heatmap grid using Recharts',
+        highlights: [
+          'Recharts heatmap implementation',
+          '7 days × 96 intervals (15-min) grid',
+          'Color-coded service levels',
+          'Responsive design with scroll',
+          'Performance optimized for 672 cells'
+        ]
+      },
+      {
+        name: 'Story 2.3 - Heatmap Hover Tooltips',
+        githubPath: 'docs/stories/2.3.heatmap-hover-tooltips.md',
+        description: 'Add hover tooltips showing coverage stats for each cell',
+        highlights: [
+          'Tooltip with demand, coverage, delta',
+          'Service level indicator',
+          'Time and date display',
+          'Smooth animations',
+          'Keyboard accessible'
+        ]
+      },
+      {
+        name: 'Story 2.4 - Heatmap Detail Modal',
+        githubPath: 'docs/stories/2.4.heatmap-detail-modal.md',
+        description: 'Click cells to open modal with detailed coverage breakdown',
+        highlights: [
+          'Modal dialog with full interval details',
+          'Agent list and activity breakdown',
+          'Schedule adjustments view',
+          'Close on ESC and overlay click',
+          'Shadcn Dialog component'
+        ]
+      },
+      {
+        name: 'Story 2.5 - Heatmap Page Integration',
+        githubPath: 'docs/stories/2.5.heatmap-page-integration.md',
+        description: 'Integrate CvD heatmap into main Dashboard page',
+        highlights: [
+          'Dashboard page with heatmap',
+          'Navigation integration',
+          'Filter controls for date range',
+          'Export functionality (optional)',
+          'Responsive layout'
+        ]
+      },
+      {
+        name: 'Story 2.6 - Real-time Heatmap Updates',
+        githubPath: 'docs/stories/2.6.real-time-heatmap-updates.md',
+        description: 'Enable live updates when schedule changes affect coverage',
+        highlights: [
+          'Zustand state integration',
+          'Auto-recalculation on data changes',
+          'Optimistic UI updates',
+          'Debounced recalculations',
+          'Visual update indicators'
+        ]
+      },
+      {
+        name: 'Story 2.7 - Heatmap Legend & Color Key',
+        githubPath: 'docs/stories/2.7.heatmap-legend-color-key.md',
+        description: 'Add legend explaining color meanings and service levels',
+        highlights: [
+          'Color legend for Green/Yellow/Red zones',
+          'Service level thresholds explanation',
+          'Interactive legend with hover',
+          'Accessibility labels',
+          'Compact design'
+        ]
+      },
+      {
+        name: 'Story 2.8 - Heatmap Performance Testing',
+        githubPath: 'docs/stories/2.8.heatmap-performance-testing.md',
+        description: 'Performance optimization and testing for large datasets',
+        highlights: [
+          'Performance benchmarks and profiling',
+          'Memoization for expensive calculations',
+          'Virtualization for large grids',
+          'Bundle size analysis',
+          'Load time optimization'
+        ]
       }
     ]
   },
@@ -451,14 +559,25 @@ export const BMAD_PHASES: BmadPhase[] = [
     outputs: ['Test Design Document', 'Risk Profile for each story'],
     artifacts: [
       {
-        name: 'Story QA Gates',
-        githubPath: 'docs/qa/gates',
-        description: 'Quality checkpoints and test strategies per story',
+        name: 'Early Test Architecture Strategy',
+        githubPath: 'docs/qa/early-test-architecture.md',
+        description: 'Test strategy and risk assessment guidance',
         highlights: [
           'Risk assessment matrices',
           'Test coverage requirements',
           'Acceptance criteria validation',
           'NFR compliance checks'
+        ]
+      },
+      {
+        name: 'Story 1.4 QA Gate Example',
+        githubPath: 'docs/qa/gates/1.4-generate-demo-data-json.yml',
+        description: 'Example pre-code QA gate for demo data generation',
+        highlights: [
+          'Data validation requirements',
+          'Schema compliance checks',
+          'Performance benchmarks',
+          'Test data quality criteria'
         ]
       }
     ]
@@ -507,15 +626,26 @@ export const BMAD_PHASES: BmadPhase[] = [
     outputs: ['Updated Story QA Results section', 'Quality Gate File (PASS/CONCERNS/FAIL)'],
     artifacts: [
       {
-        name: 'Quality Gate Results',
-        githubPath: 'docs/qa/gates',
-        description: 'QA review results with pass/fail decisions per story',
+        name: 'Story 1.5 QA Gate Results',
+        githubPath: 'docs/qa/gates/1.5-create-app-shell.yml',
+        description: 'Example QA gate results for app shell story',
         highlights: [
           'Functional testing results',
           'NFR compliance validation',
           'Accessibility audit results',
           'Performance benchmark results',
           'Code quality metrics'
+        ]
+      },
+      {
+        name: 'Story 1.6 QA Gate Results',
+        githubPath: 'docs/qa/gates/1.6-configure-testing-framework.yml',
+        description: 'QA gate results for testing framework setup',
+        highlights: [
+          'Test framework validation',
+          'Coverage configuration check',
+          'CI/CD integration verification',
+          'Sample test execution results'
         ]
       }
     ]

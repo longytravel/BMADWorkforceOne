@@ -71,7 +71,7 @@ export function BmadFlowPage() {
       <div>
         <BmadFlowDiagram onPhaseClick={handlePhaseClick} />
         <p className="text-center text-sm text-slate-500 mt-3">
-          💡 <strong>Tip:</strong> Click any phase node to view artifacts and documentation
+          💡 <strong>Tip:</strong> This diagram shows the complete BMad workflow with decision points and feedback loops. Use the phase grid below to view artifacts.
         </p>
       </div>
 
