@@ -64,10 +64,14 @@ interface CvDHeatmapProps {
  * @returns {JSX.Element} Rendered heatmap grid
  */
 export function CvDHeatmap({
-  weekStartDate: _weekStartDate, // Reserved for future multi-week support
-  highlightedIntervals: _highlightedIntervals = [], // Reserved for future highlighting
+  weekStartDate, // Reserved for future multi-week support
+  highlightedIntervals = [], // Reserved for future highlighting
   onCellClick,
 }: CvDHeatmapProps) {
+  // Suppress unused parameter warnings for future-use props
+  void weekStartDate;
+  void highlightedIntervals;
+
   // Read coverage data from Zustand store
   const cvdData = useAppStore((state) => state.cvdData);
 
