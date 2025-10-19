@@ -11,7 +11,18 @@
       "Bash(npm test)",
       "Bash(npm run build)",
       "Bash(npm run dev)",
-      "Bash(git add -A)"
+      "Bash(git add -A)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nStory 2.3: Add hover tooltips to CvD heatmap cells\n\nImplemented interactive tooltips for heatmap cells showing coverage details:\n\nFEATURES:\n- Coverage percentage, agents count, and forecasted demand display\n- Time interval (day + 15-min range) with auto-calculated end time\n- Color-coded borders matching risk levels (green/yellow/red)\n- Auto-positioning to avoid screen edges (Radix UI)\n- 200ms delay for smooth UX\n- Keyboard navigation support (Tab + Enter/Space)\n- Full ARIA accessibility\n\nCOMPONENTS:\n- HeatmapTooltip.tsx: Main tooltip wrapper with Shadcn/Radix UI\n- HeatmapTooltip.test.tsx: 9 passing tests (1 skipped - Radix limitation)\n- Updated HeatmapCell.tsx to integrate tooltips\n- Added Shadcn tooltip component\n\nTESTING:\n- All 9 unit tests passing\n- Verified in Chrome DevTools for all 3 risk levels\n- ESLint clean, production build successful\n\nStory 2.3 COMPLETE - Ready for Review\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push origin main)",
+      "Bash(npx shadcn@latest add badge -y)",
+      "Bash(npm test -- HeatmapDetailModal.test.tsx)",
+      "Bash(npx shadcn@latest add badge -y --overwrite)",
+      "Bash(npm test -- --run)",
+      "Bash(npm test -- HeatmapDetailModal.test.tsx --run)",
+      "Bash(npm test -- HeatmapDetailModal --run)",
+      "Bash(npm test -- Dashboard.test.tsx --run)",
+      "Bash(git add wfm-intelligence-demo/src/components/Dashboard/Dashboard.tsx wfm-intelligence-demo/src/components/Dashboard/Dashboard.test.tsx docs/stories/2.5.heatmap-page-integration.md)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nStory 2.5: Integrate CvD heatmap into main Dashboard page\n\nTransformed Dashboard from placeholder to focused heatmap experience:\n\nFEATURES:\n- Page title: \"Capacity vs Demand Heatmap\"\n- Descriptive subtitle explaining 7-day coverage visualization\n- Heatmap as primary content (removed welcome placeholder)\n- Document title \"CvD Heatmap - WFM Intelligence Demo\"\n- ARIA accessibility: role=\"main\" and aria-label attributes\n- Responsive layout with overflow-x-auto for mobile\n\nCOMPONENTS:\n- Dashboard.tsx: Streamlined to focus on heatmap display\n- Dashboard.test.tsx: 8 passing integration tests\n\nARCHITECTURE:\n- Loading/error states handled at App.tsx level (cleaner UX)\n- Navigation already in Header from Story 1.5\n- Leverages existing AppShell layout structure\n\nTESTING:\n- All 8 Dashboard tests passing\n- ESLint clean, production build successful\n- Total: 87/88 tests passing (1 pre-existing perf test)\n\nACCEPTANCE CRITERIA MET:\n✓ AC 1-4: Heatmap prominently displayed with title/subtitle\n✓ AC 5: Loading state via LoadingScreen component\n✓ AC 6: Error handling with retry functionality\n✓ AC 7: Responsive layout tested at multiple sizes\n✓ AC 8: Navigation accessible from Header\n\nStory 2.5 COMPLETE - Ready for Review\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")"
     ],
     "deny": [],
     "ask": []

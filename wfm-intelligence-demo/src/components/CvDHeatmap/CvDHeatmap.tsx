@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useAppStore } from '@/stores/appStore';
 import type { CvDDataPoint } from '@/types';
 import { HeatmapCell } from './HeatmapCell';
+import { HeatmapDetailModal } from './HeatmapDetailModal';
 
 /**
  * Day names for column headers
@@ -75,6 +76,9 @@ export function CvDHeatmap({
   // Read coverage data from Zustand store
   const cvdData = useAppStore((state) => state.cvdData);
 
+  // Modal state for showing detail view
+  const [selectedDataPoint, setSelectedDataPoint] = useState<CvDDataPoint | null>(null);
+
   /**
    * Transform flat cvdData array into 2D grid structure
    * Memoized to prevent recalculation on every render
@@ -107,15 +111,20 @@ export function CvDHeatmap({
    * Handle cell click events
    */
   const handleCellClick = (dataPoint: CvDDataPoint | null) => {
-    if (dataPoint && onCellClick) {
-      onCellClick(dataPoint);
+    if (dataPoint) {
+      setSelectedDataPoint(dataPoint);
+      // Also call optional external handler if provided
+      if (onCellClick) {
+        onCellClick(dataPoint);
+      }
     }
   };
 
   return (
-    <div className="w-full h-full overflow-auto bg-white rounded-lg shadow-sm border border-gray-200">
-      {/* Grid container with 8 columns (1 time column + 7 day columns) */}
-      <div className="grid grid-cols-8 gap-0 min-w-max">
+    <>
+      <div className="w-full h-full overflow-auto bg-white rounded-lg shadow-sm border border-gray-200">
+        {/* Grid container with 8 columns (1 time column + 7 day columns) */}
+        <div className="grid grid-cols-8 gap-0 min-w-max">
         {/* HEADER ROW */}
         <div className="sticky top-0 left-0 z-20 bg-white border-b border-r border-gray-300 p-2 text-xs font-semibold text-gray-700">
           Time
@@ -159,6 +168,14 @@ export function CvDHeatmap({
         ))}
       </div>
     </div>
+
+    {/* Detail Modal */}
+    <HeatmapDetailModal
+      dataPoint={selectedDataPoint}
+      isOpen={selectedDataPoint !== null}
+      onClose={() => setSelectedDataPoint(null)}
+    />
+  </>
   );
 }
 

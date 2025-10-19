@@ -1,3 +1,4 @@
 // Custom React hooks
 
-export {};
+export { useScheduledAgentsForInterval } from './useScheduledAgentsForInterval';
+export type { ScheduledAgent } from './useScheduledAgentsForInterval';
