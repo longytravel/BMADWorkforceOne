@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CvDHeatmap } from '@/components/CvDHeatmap';
 
 export function Dashboard() {
   return (
@@ -29,10 +30,26 @@ export function Dashboard() {
               <li>✓ Vite + React + TypeScript configured</li>
               <li>✓ Tailwind CSS + Shadcn/ui installed</li>
               <li>✓ App shell and layout components created</li>
-              <li>⏳ Demo data loading (coming soon)</li>
+              <li>✓ Demo data loading</li>
               <li>⏳ Calendar view (coming soon)</li>
-              <li>⏳ CvD heatmap (coming soon)</li>
+              <li>✓ CvD heatmap (Story 2.2 - Preview below)</li>
             </ul>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Story 2.2: Heatmap Visual Component Preview */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Coverage vs Demand Heatmap (Story 2.2)</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-slate-600 mb-4 text-sm">
+            7-day × 96 interval grid showing coverage risk levels.
+            Full integration in Story 2.6.
+          </p>
+          <div className="h-[600px] w-full border border-slate-200 rounded">
+            <CvDHeatmap />
           </div>
         </CardContent>
       </Card>

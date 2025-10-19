@@ -1,3 +1,4 @@
 // CvD Heatmap components
 
-export {};
+export { CvDHeatmap } from './CvDHeatmap';
+export { HeatmapCell } from './HeatmapCell';
