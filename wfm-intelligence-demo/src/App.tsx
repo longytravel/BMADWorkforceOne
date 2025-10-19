@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { AppShell, ErrorBoundary, ErrorScreen, LoadingScreen } from '@/components/Layout';
 import { Dashboard } from '@/components/Dashboard';
 import { BmadFlowPage } from '@/pages/BmadFlowPage';
+import { loadAllDemoData } from '@/services/loadDemoData';
+import { useAppStore } from '@/stores/appStore';
+import type { Agent, Activity, CvDDataPoint, ComplianceRule } from '@/types';
 
 type Page = 'dashboard' | 'bmad-flow';
 
@@ -10,15 +13,23 @@ function App() {
   const [error, setError] = useState<Error | null>(null);
   const [currentPage, setCurrentPage] = useState<Page>('dashboard');
 
-  useEffect(() => {
-    // Simulate data loading - will be replaced with actual data loading in future stories
-    const loadDemoData = async () => {
-      try {
-        // Simulate network delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+  const setAgents = useAppStore((state) => state.setAgents);
+  const setActivities = useAppStore((state) => state.setActivities);
+  const setCvdData = useAppStore((state) => state.setCvdData);
+  const setComplianceRules = useAppStore((state) => state.setComplianceRules);
 
-        // Data loading will be implemented in Story 1.4
-        // For now, just succeed after delay
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        // Load all demo data
+        const { data } = await loadAllDemoData();
+
+        // Populate Zustand store
+        setAgents(data.agents as unknown as Agent[]);
+        setActivities(data.schedules as unknown as Activity[]);
+        setCvdData(data.cvdForecast as unknown as CvDDataPoint[]);
+        setComplianceRules(data.complianceRules as unknown as ComplianceRule[]);
+
         setIsLoading(false);
       } catch (err) {
         setError(err instanceof Error ? err : new Error('Failed to load demo data'));
@@ -26,8 +37,8 @@ function App() {
       }
     };
 
-    loadDemoData();
-  }, []);
+    loadData();
+  }, [setAgents, setActivities, setCvdData, setComplianceRules]);
 
   const handleRetry = () => {
     setIsLoading(true);
