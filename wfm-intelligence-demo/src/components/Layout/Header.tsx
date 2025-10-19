@@ -1,4 +1,9 @@
-export function Header() {
+interface HeaderProps {
+  currentPage: 'dashboard' | 'bmad-flow';
+  onNavigate: (page: 'dashboard' | 'bmad-flow') => void;
+}
+
+export function Header({ currentPage, onNavigate }: HeaderProps) {
   return (
     <>
       {/* Skip link for accessibility */}
@@ -19,9 +24,30 @@ export function Header() {
               </h1>
             </div>
 
-            {/* Navigation placeholder - will be filled in future stories */}
+            {/* Navigation */}
             <nav aria-label="Main navigation" className="flex items-center gap-6">
-              {/* Empty for now, populated in later stories */}
+              <button
+                onClick={() => onNavigate('dashboard')}
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  currentPage === 'dashboard'
+                    ? 'bg-teal-600 text-white'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-600'
+                }`}
+                aria-current={currentPage === 'dashboard' ? 'page' : undefined}
+              >
+                Dashboard
+              </button>
+              <button
+                onClick={() => onNavigate('bmad-flow')}
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  currentPage === 'bmad-flow'
+                    ? 'bg-teal-600 text-white'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-600'
+                }`}
+                aria-current={currentPage === 'bmad-flow' ? 'page' : undefined}
+              >
+                BMad Flow
+              </button>
             </nav>
 
             {/* Version info */}

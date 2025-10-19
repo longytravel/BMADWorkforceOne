@@ -8,12 +8,13 @@ const agents = require('../wfm-intelligence-demo/public/demo-data/agents.json');
 // Week start: Monday, October 20, 2025
 const weekStart = new Date('2025-10-20T00:00:00Z');
 
-// Activity colors per architecture
+// Activity colors per architecture (Microsoft Outlook style)
+// MUST match src/types/constants.ts ActivityColors
 const COLORS = {
-  shift: '#3B82F6',   // blue
-  break: '#FB923C',   // orange
-  lunch: '#A855F7',   // purple
-  meeting: '#10B981'  // green
+  shift: '#0078D4',   // Microsoft blue
+  break: '#00B7C3',   // Teal
+  lunch: '#8764B8',   // Purple
+  meeting: '#D13438'  // Red
 };
 
 // Day mapping

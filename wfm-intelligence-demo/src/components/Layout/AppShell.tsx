@@ -3,12 +3,14 @@ import { Header } from './Header';
 
 interface AppShellProps {
   children: React.ReactNode;
+  currentPage: 'dashboard' | 'bmad-flow';
+  onNavigate: (page: 'dashboard' | 'bmad-flow') => void;
 }
 
-export function AppShell({ children }: AppShellProps) {
+export function AppShell({ children, currentPage, onNavigate }: AppShellProps) {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <Header currentPage={currentPage} onNavigate={onNavigate} />
       <main id="main-content" className="flex-1 container mx-auto px-4 py-6">
         {children}
       </main>

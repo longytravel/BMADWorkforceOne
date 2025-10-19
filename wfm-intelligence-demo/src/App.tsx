@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
 import { AppShell, ErrorBoundary, ErrorScreen, LoadingScreen } from '@/components/Layout';
 import { Dashboard } from '@/components/Dashboard';
+import { BmadFlowPage } from '@/pages/BmadFlowPage';
+
+type Page = 'dashboard' | 'bmad-flow';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
+  const [currentPage, setCurrentPage] = useState<Page>('dashboard');
 
   useEffect(() => {
     // Simulate data loading - will be replaced with actual data loading in future stories
@@ -32,6 +36,10 @@ function App() {
     window.location.reload();
   };
 
+  const handleNavigate = (page: Page) => {
+    setCurrentPage(page);
+  };
+
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -42,8 +50,8 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <AppShell>
-        <Dashboard />
+      <AppShell currentPage={currentPage} onNavigate={handleNavigate}>
+        {currentPage === 'dashboard' ? <Dashboard /> : <BmadFlowPage />}
       </AppShell>
     </ErrorBoundary>
   );
