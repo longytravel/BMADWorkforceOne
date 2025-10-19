@@ -3,7 +3,8 @@ import { render, screen } from '@testing-library/react';
 import { CvDHeatmap } from './CvDHeatmap';
 import { HeatmapCell } from './HeatmapCell';
 import { useAppStore } from '@/stores/appStore';
-import { CvDDataPoint, RiskLevel } from '@/types';
+import type { CvDDataPoint } from '@/types';
+import { RiskLevel } from '@/types';
 
 // Mock Zustand store
 vi.mock('@/stores/appStore', () => ({

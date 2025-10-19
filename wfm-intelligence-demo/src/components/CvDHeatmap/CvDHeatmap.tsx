@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useAppStore } from '@/stores/appStore';
-import { CvDDataPoint } from '@/types';
+import type { CvDDataPoint } from '@/types';
 import { HeatmapCell } from './HeatmapCell';
 
 /**
@@ -64,12 +64,8 @@ interface CvDHeatmapProps {
  * @returns {JSX.Element} Rendered heatmap grid
  */
 export function CvDHeatmap({
-  // Reserved for future multi-week support
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  weekStartDate,
-  // Reserved for future highlighting feature
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  highlightedIntervals = [],
+  weekStartDate: _weekStartDate, // Reserved for future multi-week support
+  highlightedIntervals: _highlightedIntervals = [], // Reserved for future highlighting
   onCellClick,
 }: CvDHeatmapProps) {
   // Read coverage data from Zustand store

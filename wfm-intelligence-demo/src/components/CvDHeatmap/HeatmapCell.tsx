@@ -1,5 +1,5 @@
 import React from 'react';
-import { CvDDataPoint, RiskLevel } from '@/types';
+import type { CvDDataPoint, RiskLevel } from '@/types';
 
 /**
  * Color constants for risk levels (Tailwind color palette)
