@@ -50,7 +50,9 @@ export function BmadFlowDiagram({ onPhaseClick }: BmadFlowDiagramProps) {
         }
       });
     }
-  }, [onPhaseClick]);
+    // Empty dependency array ensures diagram only renders once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-full bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg p-8 shadow-inner">
