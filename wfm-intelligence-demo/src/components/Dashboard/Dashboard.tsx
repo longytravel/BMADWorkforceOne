@@ -1,58 +1,32 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useEffect } from 'react';
 import { CvDHeatmap } from '@/components/CvDHeatmap';
 
 export function Dashboard() {
+  // Set document title for accessibility and SEO
+  useEffect(() => {
+    document.title = 'CvD Heatmap - WFM Intelligence Demo';
+  }, []);
+
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold text-slate-800">
-          WFM Scheduling Demo
+    <div
+      className="space-y-6"
+      aria-label="Capacity vs Demand Dashboard"
+      role="main"
+    >
+      {/* Page Header */}
+      <div className="space-y-2">
+        <h1 className="text-3xl font-bold text-slate-800">
+          Capacity vs Demand Heatmap
         </h1>
-        <div className="text-sm text-slate-500">
-          Ready for Development
-        </div>
+        <p className="text-slate-600 text-lg">
+          Real-time coverage visualization across 7 days showing service level risk
+        </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Welcome to the WFM Intelligence Demo</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-slate-600 mb-4">
-            This is a placeholder dashboard that will be replaced with actual
-            scheduling features in upcoming stories.
-          </p>
-          <div className="bg-slate-50 p-4 rounded border border-slate-200">
-            <p className="text-sm text-slate-700 font-medium mb-2">
-              App Status: Initialized
-            </p>
-            <ul className="text-sm text-slate-600 space-y-1">
-              <li>✓ Vite + React + TypeScript configured</li>
-              <li>✓ Tailwind CSS + Shadcn/ui installed</li>
-              <li>✓ App shell and layout components created</li>
-              <li>✓ Demo data loading</li>
-              <li>⏳ Calendar view (coming soon)</li>
-              <li>✓ CvD heatmap (Story 2.2 - Preview below)</li>
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Story 2.2: Heatmap Visual Component Preview */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Coverage vs Demand Heatmap (Story 2.2)</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-slate-600 mb-4 text-sm">
-            7-day × 96 interval grid showing coverage risk levels.
-            Full integration in Story 2.6.
-          </p>
-          <div className="h-[600px] w-full border border-slate-200 rounded">
-            <CvDHeatmap />
-          </div>
-        </CardContent>
-      </Card>
+      {/* Heatmap Container - Responsive with overflow handling */}
+      <div className="bg-white rounded-lg shadow-lg p-6 overflow-x-auto">
+        <CvDHeatmap />
+      </div>
     </div>
   );
 }
