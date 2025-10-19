@@ -17,7 +17,7 @@ interface BmadFlowDiagramProps {
   onPhaseClick: (phaseId: string) => void; // Callback when user clicks a phase node
 }
 
-export function BmadFlowDiagram({ onPhaseClick }: BmadFlowDiagramProps) {
+export function BmadFlowDiagram({ onPhaseClick: _onPhaseClick }: BmadFlowDiagramProps) {
   const mermaidRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
