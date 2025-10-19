@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import { AppShell, ErrorBoundary, ErrorScreen, LoadingScreen } from '@/components/Layout';
 import { Dashboard } from '@/components/Dashboard';
 import { BmadFlowPage } from '@/pages/BmadFlowPage';
+import { BmadVideoPage } from '@/pages/BmadVideoPage';
 import { loadAllDemoData } from '@/services/loadDemoData';
 import { useAppStore } from '@/stores/appStore';
 import type { Agent, Activity, CvDDataPoint, ComplianceRule } from '@/types';
 
-type Page = 'dashboard' | 'bmad-flow';
+type Page = 'dashboard' | 'bmad-video' | 'bmad-flow';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-  const [currentPage, setCurrentPage] = useState<Page>('dashboard');
+  const [currentPage, setCurrentPage] = useState<Page>('bmad-video');
 
   const setAgents = useAppStore((state) => state.setAgents);
   const setActivities = useAppStore((state) => state.setActivities);
@@ -51,6 +52,19 @@ function App() {
     setCurrentPage(page);
   };
 
+  // Listen for navigation events from video page CTA
+  useEffect(() => {
+    const handleNavigationEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ page: Page }>;
+      if (customEvent.detail?.page) {
+        setCurrentPage(customEvent.detail.page);
+      }
+    };
+
+    window.addEventListener('navigate', handleNavigationEvent);
+    return () => window.removeEventListener('navigate', handleNavigationEvent);
+  }, []);
+
   if (isLoading) {
     return <LoadingScreen />;
   }
@@ -62,7 +76,9 @@ function App() {
   return (
     <ErrorBoundary>
       <AppShell currentPage={currentPage} onNavigate={handleNavigate}>
-        {currentPage === 'dashboard' ? <Dashboard /> : <BmadFlowPage />}
+        {currentPage === 'dashboard' && <Dashboard />}
+        {currentPage === 'bmad-video' && <BmadVideoPage />}
+        {currentPage === 'bmad-flow' && <BmadFlowPage />}
       </AppShell>
     </ErrorBoundary>
   );

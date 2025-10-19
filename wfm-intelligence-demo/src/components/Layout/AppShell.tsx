@@ -3,8 +3,8 @@ import { Header } from './Header';
 
 interface AppShellProps {
   children: React.ReactNode;
-  currentPage: 'dashboard' | 'bmad-flow';
-  onNavigate: (page: 'dashboard' | 'bmad-flow') => void;
+  currentPage: 'dashboard' | 'bmad-video' | 'bmad-flow';
+  onNavigate: (page: 'dashboard' | 'bmad-video' | 'bmad-flow') => void;
 }
 
 export function AppShell({ children, currentPage, onNavigate }: AppShellProps) {

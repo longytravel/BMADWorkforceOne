@@ -1,6 +1,6 @@
 interface HeaderProps {
-  currentPage: 'dashboard' | 'bmad-flow';
-  onNavigate: (page: 'dashboard' | 'bmad-flow') => void;
+  currentPage: 'dashboard' | 'bmad-video' | 'bmad-flow';
+  onNavigate: (page: 'dashboard' | 'bmad-video' | 'bmad-flow') => void;
 }
 
 export function Header({ currentPage, onNavigate }: HeaderProps) {
@@ -27,15 +27,15 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
             {/* Navigation */}
             <nav aria-label="Main navigation" className="flex items-center gap-6">
               <button
-                onClick={() => onNavigate('dashboard')}
+                onClick={() => onNavigate('bmad-video')}
                 className={`px-4 py-2 rounded-md transition-colors ${
-                  currentPage === 'dashboard'
+                  currentPage === 'bmad-video'
                     ? 'bg-teal-600 text-white'
                     : 'text-slate-300 hover:text-white hover:bg-slate-600'
                 }`}
-                aria-current={currentPage === 'dashboard' ? 'page' : undefined}
+                aria-current={currentPage === 'bmad-video' ? 'page' : undefined}
               >
-                Dashboard
+                BMad Video
               </button>
               <button
                 onClick={() => onNavigate('bmad-flow')}
@@ -47,6 +47,17 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
                 aria-current={currentPage === 'bmad-flow' ? 'page' : undefined}
               >
                 BMad Flow
+              </button>
+              <button
+                onClick={() => onNavigate('dashboard')}
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  currentPage === 'dashboard'
+                    ? 'bg-teal-600 text-white'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-600'
+                }`}
+                aria-current={currentPage === 'dashboard' ? 'page' : undefined}
+              >
+                Heatmap Demo
               </button>
             </nav>
 
